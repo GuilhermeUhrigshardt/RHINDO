@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author guilh
  */
 public class Cargo implements Serializable {
+    private int idCargo;
     private String nomeCargo;
     private float salario;
     private String requisitos;
@@ -20,6 +21,14 @@ public class Cargo implements Serializable {
     
     public Cargo() {
         
+    }
+    
+    public int getIdCargo() {
+        return idCargo;
+    }
+
+    public void setIdCargo(int idCargo) {
+        this.idCargo = idCargo;
     }
 
     public String getNomeCargo() {

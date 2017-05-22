@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author guilh
  */
 public class Funcionario implements Serializable {
+    private int idFuncionario;
     private String email;
     private String nomeFuncionario;
     private String cpf;
@@ -23,6 +24,14 @@ public class Funcionario implements Serializable {
     
     public Funcionario() {
         
+    }
+    
+    public int getIdFuncionario() {
+        return idFuncionario;
+    }
+
+    public void setIdFuncionario(int idFuncionario) {
+        this.idFuncionario = idFuncionario;
     }
 
     public String getEmail() {

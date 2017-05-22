@@ -12,11 +12,20 @@ import java.io.Serializable;
  * @author guilh
  */
 public class Departamento implements Serializable {
+    private int idDepartamento;
     private String nomeDepartamento;
     private String localizacao;
     
     public Departamento() {
         
+    }
+    
+    public int getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(int idDepartamento) {
+        this.idDepartamento = idDepartamento;
     }
 
     public String getNomeDepartamento() {

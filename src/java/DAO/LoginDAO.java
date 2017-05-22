@@ -20,7 +20,7 @@ import java.sql.SQLException;
  */
 public class LoginDAO {
     private String stmtBuscaFuncionario = "SELECT f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, d.nomeDepartamento, d.localizacao, c.nomeCargo, c.salario, c.requisitos, c.cargaMinima, c.descontoImpostos, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla\n"
-            + "FROM funcionario f\n"
+            + "FROM Funcionario f\n"
             + "INNER JOIN Departamento d ON f.idDepartamento = d.idDepartamento\n"
             + "INNER JOIN Cargo c ON f.idCargo = c.idCargo\n"
             + "INNER JOIN Endereco e ON f.idEndereco = e.idEndereco\n"

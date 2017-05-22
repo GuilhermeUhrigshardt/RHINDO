@@ -6,25 +6,23 @@
 package Servlets;
 
 import Beans.Funcionario;
-import DAO.FuncionarioDAO;
+import DAO.DepartamentoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author guilh
  */
-@WebServlet(name = "BuscarFuncionario", urlPatterns = {"/BuscarFuncionario"})
-public class BuscarFuncionario extends HttpServlet {
+@WebServlet(name = "BuscarDepartamento", urlPatterns = {"/BuscarDepartamento"})
+public class BuscarDepartamento extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,19 +34,13 @@ public class BuscarFuncionario extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*HttpSession session = request.getSession(false);
-        if (session == null) {
-            request.setAttribute("msg", "Acesso Negado!");
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
-            rd.forward(request, response);
-        }*/
         String nome = request.getParameter("buscaFuncionario");
-        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+        DepartamentoDAO departamentoDAO = new DepartamentoDAO();
         List<Funcionario> lista = new ArrayList<>();
         //if (nome.equals(""))
-        //    lista = funcionarioDAO.buscarTodos();
+            //lista = departamentoDAO.buscarTodos();
         //else
-        //    lista = funcionarioDAO.buscarPorNome(nome);
+            //lista = departamentoDAO.buscarPorNome(nome);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
