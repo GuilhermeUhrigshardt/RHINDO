@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Beans.Funcionario;
+import Beans.Cargo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,26 +15,26 @@ import java.sql.SQLException;
  *
  * @author guilh
  */
-public class FuncionarioDAO {
-    private String stmtBuscaFuncionario = "SELECT nomeFuncionario, cpf, rg, celular, email FROM funcionario WHERE nome = ?";
+public class CargoDAO {
+    private String stmtBuscaCargo = "SELECT nomeCargo, salario, requisitos, cargaMinima, descontoImpostos FROM cargo WHERE idCargo = ?";
     
-    public Funcionario lerFuncionario (String nomeFuncionario){
+    public Cargo lerCargo (int idCargo){
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
             con = ConnectionFactory.getConnection();
-            stmt = con.prepareStatement(stmtBuscaFuncionario);
-            stmt.setString(1, nomeFuncionario);
+            stmt = con.prepareStatement(stmtBuscaCargo);
+            stmt.setInt(1, idCargo);
             rs = stmt.executeQuery();   
             if (rs.next()) {
-                Funcionario f = new Funcionario();
-                f.setNomeFuncionario(rs.getString("nome"));
-                f.setCpf(rs.getString("cpf"));
-                f.setRg(rs.getString("rg"));
-                f.setCelular(rs.getString("celular"));
-                f.setEmail(rs.getString("email"));
-                return f;
+                Cargo c = new Cargo();
+                c.setNomeCargo(rs.getString("nome"));
+                c.setSalario(rs.getFloat("salario"));
+                c.setRequisitos(rs.getString("requisitos"));
+                c.setCargaMinima(rs.getInt("cargaMinima"));
+                c.setDescontoImpostos(rs.getFloat("descontoImpostos"));
+                return c;
             }
             else {
                 return null;

@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 public class Funcionario implements Serializable {
     private String email;
-    private String nome;
+    private String nomeFuncionario;
     private String cpf;
     private String rg;
     private String celular;
@@ -33,12 +33,12 @@ public class Funcionario implements Serializable {
         this.email = email;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeFuncionario() {
+        return nomeFuncionario;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeFuncionario(String nomeFuncionario) {
+        this.nomeFuncionario = nomeFuncionario;
     }
 
     public String getCpf() {

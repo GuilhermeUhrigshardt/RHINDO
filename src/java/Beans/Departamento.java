@@ -12,19 +12,19 @@ import java.io.Serializable;
  * @author guilh
  */
 public class Departamento implements Serializable {
-    private String nome;
+    private String nomeDepartamento;
     private String localizacao;
     
     public Departamento() {
         
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeDepartamento() {
+        return nomeDepartamento;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeDepartamento(String nomeDepartamento) {
+        this.nomeDepartamento = nomeDepartamento;
     }
 
     public String getLocalizacao() {

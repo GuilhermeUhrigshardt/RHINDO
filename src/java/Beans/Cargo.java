@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author guilh
  */
 public class Cargo implements Serializable {
-    private String nome;
+    private String nomeCargo;
     private float salario;
     private String requisitos;
     private int cargaMinima;
@@ -22,12 +22,12 @@ public class Cargo implements Serializable {
         
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeCargo() {
+        return nomeCargo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeCargo(String nomeCargo) {
+        this.nomeCargo = nomeCargo;
     }
 
     public float getSalario() {

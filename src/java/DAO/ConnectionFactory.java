@@ -16,6 +16,6 @@ import java.sql.SQLException;
 public class ConnectionFactory {
     public static Connection getConnection() throws SQLException{
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-        return DriverManager.getConnection("jdbc:mysql://localhost/RHINDO", "root", "1q2w3e4r5");
+        return DriverManager.getConnection("jdbc:mysql://localhost/rhindo", "root", "1q2w3e4r5");
     }
 }

@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import Beans.Funcionario;
+import Beans.Departamento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,33 +15,30 @@ import java.sql.SQLException;
  *
  * @author guilh
  */
-public class FuncionarioDAO {
-    private String stmtBuscaFuncionario = "SELECT nomeFuncionario, cpf, rg, celular, email FROM funcionario WHERE nome = ?";
+public class DepartamentoDAO {
+    private String stmtBuscaDepartamento = "SELECT nomeDepartamento, localizacao FROM departamento WHERE idDepartamento = ?";
     
-    public Funcionario lerFuncionario (String nomeFuncionario){
+    public Departamento lerDepartamento (int idDepartamento){
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
             con = ConnectionFactory.getConnection();
-            stmt = con.prepareStatement(stmtBuscaFuncionario);
-            stmt.setString(1, nomeFuncionario);
+            stmt = con.prepareStatement(stmtBuscaDepartamento);
+            stmt.setInt(1, idDepartamento);
             rs = stmt.executeQuery();   
             if (rs.next()) {
-                Funcionario f = new Funcionario();
-                f.setNomeFuncionario(rs.getString("nome"));
-                f.setCpf(rs.getString("cpf"));
-                f.setRg(rs.getString("rg"));
-                f.setCelular(rs.getString("celular"));
-                f.setEmail(rs.getString("email"));
-                return f;
+                Departamento d = new Departamento();
+                d.setNomeDepartamento(rs.getString("nomeDepartamento"));
+                d.setLocalizacao(rs.getString("localizacao"));
+                return d;
             }
             else {
                 return null;
             }
         }
         catch (SQLException ex) {
-            throw new RuntimeException("Erro ao buscar usuario " + ex.getMessage());
+            throw new RuntimeException("Erro ao buscar departamento" + ex.getMessage());
         } finally {
             try {
                 stmt.close();
