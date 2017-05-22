@@ -1,13 +1,13 @@
 <%-- 
-    Document   : manter_funcionarios
-    Created on : May 21, 2017, 7:14:58 PM
+    Document   : manter_departamentos
+    Created on : May 22, 2017, 5:27:17 PM
     Author     : guilh
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<c:if test="${sessionScope.funcionario.departamento.nomeDepartamento == 'Gerencia' || sessionScope.funcionario.cargo.nomeCargo == 'Presidente'}"> <!--Trcar para RH e Gerente-->
+<c:if test="${sessionScope.funcionario.departamento.nomeDepartamento != 'Gerencia' || sessionScope.funcionario.cargo.nomeCargo != 'Presidente'}"> <!--Trcar para RH e Gerente-->
     <c:redirect url="/erro.jsp">
         <c:param name="msg" value="Acesso negado!"/>
     </c:redirect>
@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Manter Funcionários</title>
+        <title>Manter Departamentos</title>
     </head>
     <body>
         <div style="text-align:left;">
@@ -23,11 +23,6 @@
         </div>
         <center>
             <a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a> | <a href="/RHINDO/manter_departamentos.jsp">Departamentos</a> | <a href="/RHINDO/manter_cargos.jsp">Cargos</a> | <a href="/RHINDO/folhas.jsp">Folhas</a> | <a href="/RHINDO/relatorios.jsp">Relatórios</a>
-            <br/><br/><br/>
-            <form action="http://localhost:21836/RHINDO/BuscarFuncionario" method="POST">
-                <input type="text" name="buscaFuncionario" placeholder="Buscar por nome">
-                <input type="submit" value="Buscar">
-            </form>
         </center>
     </body>
 </html>

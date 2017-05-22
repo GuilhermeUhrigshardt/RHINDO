@@ -5,8 +5,6 @@
  */
 package Servlets;
 
-import Beans.Funcionario;
-import DAO.LoginDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -21,8 +19,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author guilh
  */
-@WebServlet(name = "ProcessaLogin", urlPatterns = {"/ProcessaLogin"})
-public class ProcessaLogin extends HttpServlet {
+@WebServlet(name = "BuscarFuncionario", urlPatterns = {"/BuscarFuncionario"})
+public class BuscarFuncionario extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,27 +32,10 @@ public class ProcessaLogin extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
-        PrintWriter out = response.getWriter();
-        LoginDAO loginDAO = new LoginDAO();
-        Funcionario funcionario = new Funcionario();
-        funcionario = loginDAO.lerFuncionario(email, senha);
-        if (funcionario != null) {            
-            HttpSession session = request.getSession();
-            session.setAttribute("funcionario", funcionario);
-            session.setMaxInactiveInterval(20*60);
-            RequestDispatcher rd = null;
-            if (funcionario.getCargo().getNomeCargo().equals("Presidente") && funcionario.getDepartamento().getNomeDepartamento().equals("Gerencia"))
-                rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
-            else
-                rd = getServletContext().getRequestDispatcher("/relatorios_funcionario.jsp");
-            rd.include(request, response);
-        }
-        else {
-            request.setAttribute("msg", "Email e/ou senha incorreto(s)!");
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            request.setAttribute("msg", "Acesso Negado!");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
             rd.forward(request, response);
         }
     }
