@@ -19,9 +19,9 @@
                 <c:when test="${!empty param.msg}">
                     <h3>${param.msg}</h3>
                 </c:when>
-                <%--<c:otherwise>
-                    <h3>${param.msg}</h3>
-                </c:otherwise>--%>
+                <c:otherwise>
+                    <h3>${msg}</h3>
+                </c:otherwise>
             </c:choose>
         </center>
     </body>

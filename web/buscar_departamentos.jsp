@@ -25,12 +25,23 @@
             <h2>RH-INDO</h2>
             <a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a> | <a href="/RHINDO/manter_departamentos.jsp">Departamentos</a> | <a href="/RHINDO/manter_cargos.jsp">Cargos</a> | <a href="/RHINDO/folhas.jsp">Folhas</a> | <a href="/RHINDO/relatorios.jsp">Relatórios</a>
             <br/><br/><br/>
-            <table border="1">
+            <h3>Busca Departamentos</h3>
+            <br/>
+            <table border="1" cellspacing="1">
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Localização</th>
+                    <th>Deletar</th>
+                    <th>Alterar</th>
+                </tr>
                 <c:forEach items="${lista}" var="item">
                     <tr>
                         <td>${item.idDepartamento}</td>
                         <td>${item.nomeDepartamento}</td>
                         <td>${item.localizacao}</td>
+                        <td><a href="/RemoverDepartamento"><input type="button" value="Deletar" /></a></td>
+                        <td><a href="/AlterarDepartamento"><input type="button" value="Deletar" /></a></td>
                     </tr>
                 </c:forEach>
             </table>

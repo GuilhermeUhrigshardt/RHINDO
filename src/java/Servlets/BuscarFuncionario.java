@@ -36,12 +36,12 @@ public class BuscarFuncionario extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(false);
         if (session == null) {
             request.setAttribute("msg", "Acesso Negado!");
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
             rd.forward(request, response);
-        }*/
+        }
         String nome = request.getParameter("buscaFuncionario");
         FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         List<Funcionario> lista = new ArrayList<>();
