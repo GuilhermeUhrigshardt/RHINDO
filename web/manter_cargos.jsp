@@ -24,6 +24,11 @@
         <center>
             <h2>RH-INDO</h2>
             <a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a> | <a href="/RHINDO/manter_departamentos.jsp">Departamentos</a> | <a href="/RHINDO/manter_cargos.jsp">Cargos</a> | <a href="/RHINDO/folhas.jsp">Folhas</a> | <a href="/RHINDO/relatorios.jsp">Relatórios</a>
+            <br/><br/><br/>
+            <form action="http://localhost:21836/RHINDO/BuscarCargo" method="POST">
+                <input type="text" name="buscaCargo" placeholder="Buscar por nome">
+                <input type="submit" value="Buscar">
+            </form>
         </center>
     </body>
 </html>

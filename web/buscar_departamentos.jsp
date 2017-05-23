@@ -1,6 +1,6 @@
 <%-- 
-    Document   : manter_departamentos
-    Created on : May 22, 2017, 5:27:17 PM
+    Document   : buscar_departamentos
+    Created on : May 22, 2017, 9:22:59 PM
     Author     : guilh
 --%>
 
@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Manter Departamentos</title>
+        <title>Buscar Departamentos</title>
     </head>
     <body>
         <div style="text-align:left;">
@@ -25,10 +25,15 @@
             <h2>RH-INDO</h2>
             <a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a> | <a href="/RHINDO/manter_departamentos.jsp">Departamentos</a> | <a href="/RHINDO/manter_cargos.jsp">Cargos</a> | <a href="/RHINDO/folhas.jsp">Folhas</a> | <a href="/RHINDO/relatorios.jsp">Relatórios</a>
             <br/><br/><br/>
-            <form action="http://localhost:21836/RHINDO/BuscarDepartamento" method="POST">
-                <input type="text" name="buscaDepartamento" placeholder="Buscar por nome">
-                <input type="submit" value="Buscar">
-            </form>
+            <table border="1">
+                <c:forEach items="${lista}" var="item">
+                    <tr>
+                        <td>${item.idDepartamento}</td>
+                        <td>${item.nomeDepartamento}</td>
+                        <td>${item.localizacao}</td>
+                    </tr>
+                </c:forEach>
+            </table>
         </center>
     </body>
 </html>

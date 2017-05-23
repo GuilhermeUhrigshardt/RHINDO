@@ -21,26 +21,24 @@ import java.util.List;
 public class DepartamentoDAO {
     Connection con = null;
     PreparedStatement stmt = null;
-    ResultSet rs = null;
-    
+    ResultSet rs = null;    
     String buscarPorNome = "select idDepartamento, nomeDepartamento, localizacao from Departamento where nomeDepartamento like ? order by idDepartamento";    
     String buscarTodos = "select idDepartamento, nomeDepartamento, localizacao from Departamento order by idDepartamento";
+    String buscarNome = "select nomeDepartamento from Departamento order by idDepartamento";
     
-    public List<Departamento> buscarDepartamentos(String razao) throws SQLException, ClassNotFoundException {
+    public List<Departamento> buscarPorNome(String nome) throws SQLException, ClassNotFoundException {
         List<Departamento> lista = new ArrayList<>();
         try {
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(buscarPorNome);
-            stmt.setString(1, "%" + razao + "%");
+            stmt.setString(1, "%" + nome + "%");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Departamento d = new Departamento();
-                //e.setCodDepartamento(rs.getInt("id_empresa"));
-                //e.setCnpj(rs.getString("cnpj"));
-                //e.setRazaoSocial(rs.getString("razao_social"));
-                //e.setEndereco(rs.getString("endereco"));
-                //e.setEmail(rs.getString("email"));
-                //lista.add(e);
+                d.setIdDepartamento(rs.getInt("idDepartamento"));
+                d.setNomeDepartamento(rs.getString("nomeDepartamento"));
+                d.setLocalizacao(rs.getString("localizacao"));
+                lista.add(d);
             }
             return lista;
         } catch (SQLException ex) {
@@ -53,7 +51,7 @@ public class DepartamentoDAO {
         return lista;
     }
     
-    public List<Departamento> buscarTodas() throws SQLException, ClassNotFoundException {
+    public List<Departamento> buscarTodos() throws SQLException, ClassNotFoundException {
         List<Departamento> lista = new ArrayList<>();
         try {
             con = ConnectionFactory.getConnection();
@@ -71,6 +69,29 @@ public class DepartamentoDAO {
             out.println("Erro ao listar Departamentos: " + ex.getMessage());
         } finally {
             stmt.close();
+            con.close();
+        }
+        return lista;
+    }
+    
+    public List<Departamento> buscarNomes(String nome) throws SQLException, ClassNotFoundException {
+        List<Departamento> lista = new ArrayList<>();
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(buscarNome);
+            stmt.setString(1, "%" + nome + "%");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Departamento d = new Departamento();
+                d.setNomeDepartamento(rs.getString("nomeDepartamento"));
+                lista.add(d);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            out.println("Erro ao listar Departamentos: " + ex.getMessage());
+        } finally {
+            stmt.close();
+            rs.close();
             con.close();
         }
         return lista;

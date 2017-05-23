@@ -1,6 +1,6 @@
 <%-- 
-    Document   : manter_departamentos
-    Created on : May 22, 2017, 5:27:17 PM
+    Document   : buscar_cargos
+    Created on : May 22, 2017, 9:24:34 PM
     Author     : guilh
 --%>
 
@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Manter Departamentos</title>
+        <title>Buscar Cargos</title>
     </head>
     <body>
         <div style="text-align:left;">
@@ -25,10 +25,6 @@
             <h2>RH-INDO</h2>
             <a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a> | <a href="/RHINDO/manter_departamentos.jsp">Departamentos</a> | <a href="/RHINDO/manter_cargos.jsp">Cargos</a> | <a href="/RHINDO/folhas.jsp">Folhas</a> | <a href="/RHINDO/relatorios.jsp">Relatórios</a>
             <br/><br/><br/>
-            <form action="http://localhost:21836/RHINDO/BuscarDepartamento" method="POST">
-                <input type="text" name="buscaDepartamento" placeholder="Buscar por nome">
-                <input type="submit" value="Buscar">
-            </form>
         </center>
     </body>
 </html>
