@@ -27,7 +27,8 @@ public class DepartamentoDAO {
     private String buscarNome = "select nomeDepartamento from Departamento order by idDepartamento";
     private String buscarPorId = "select idDepartamento, nomeDepartamento, localizacao from Departamento where idDepartamento = ?";
     private String atualizarDepartamento = "update Departamento set nomeDepartamento = ?, localizacao = ? where idDepartamento = ?";
-    private String removerDepartamento = "delete Departamento where idDepartamento = ?";
+    private String removerDepartamento = "delete from Departamento where idDepartamento = ?";
+    private String cadastrarDepartamento = "insert into Departamento (nomeDepartamento, localizacao) values (?, ?)"; 
     
     public List<Departamento> buscarPorNome(String nome) throws SQLException, ClassNotFoundException {
         List<Departamento> lista = new ArrayList<>();
@@ -147,6 +148,21 @@ public class DepartamentoDAO {
             stmt.executeUpdate();
         } catch (SQLException ex) {
             out.println("Erro ao remover Departamentos: " + ex.getMessage());
+        } finally {
+            stmt.close();
+            con.close();
+        }
+    }
+    
+    public void cadastrarDepartamento(Departamento departamento) throws SQLException, ClassNotFoundException {
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(cadastrarDepartamento);
+            stmt.setString(1, departamento.getNomeDepartamento());
+            stmt.setString(2, departamento.getLocalizacao());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            out.println("Erro ao cadastrar Departamentos: " + ex.getMessage());
         } finally {
             stmt.close();
             con.close();

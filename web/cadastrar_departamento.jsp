@@ -1,6 +1,6 @@
 <%-- 
-    Document   : manter_departamentos
-    Created on : May 22, 2017, 5:27:17 PM
+    Document   : cadastrar_departamento
+    Created on : May 24, 2017, 7:50:43 PM
     Author     : guilh
 --%>
 
@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Manter Departamentos</title>
+        <title>Cadastrar Departamento</title>
     </head>
     <body>
         <div style="text-align:left;">
@@ -25,14 +25,16 @@
             <h2>RH-INDO</h2>
             <a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a> | <a href="/RHINDO/manter_departamentos.jsp">Departamentos</a> | <a href="/RHINDO/manter_cargos.jsp">Cargos</a> | <a href="/RHINDO/folhas.jsp">Folhas</a> | <a href="/RHINDO/relatorios.jsp">Relatórios</a>
             <br/><br/><br/>
-            <h3>Manter Departamentos</h3>
+            <h3>Cadastrar Departamento</h3>
             <br/>
-            <form action="BuscarDepartamento" method="POST">
-                <input type="text" name="buscaDepartamento" placeholder="Buscar por nome">
-                <input type="submit" value="Buscar">
+            <form action="CadastrarDepartamento" method="POST">
+                Nome: <input type="text" name="Nome" placeholder="Nome">
+                <br/>
+                Localização: <input type="text" name="Localizacao" placeholder="Localização">
+                <br/>
+                <input type="reset" value="Limpar">
+                <input type="submit" value="Cadastrar">
             </form>
-            <br/><br/>
-            <a href="cadastrar_departamento.jsp"><input type="submit" value="Cadastrar"></a>
-        </center>
+        </center>    
     </body>
 </html>

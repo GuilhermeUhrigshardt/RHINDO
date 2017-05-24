@@ -31,6 +31,8 @@
                 <input type="text" name="buscaCargo" placeholder="Buscar por nome">
                 <input type="submit" value="Buscar">
             </form>
+            <br/><br/>
+            <a href="cadastrar_cargo.jsp"><input type="submit" value="Cadastrar"></a>
         </center>
     </body>
 </html>
