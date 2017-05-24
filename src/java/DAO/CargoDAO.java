@@ -43,7 +43,7 @@ public class CargoDAO {
                 c.setSalario(rs.getFloat("salario"));
                 c.setRequisitos(rs.getString("requisitos"));
                 c.setCargaMinima(rs.getInt("cargaMinima"));
-                c.setDescontoImpostos(rs.getFloat("descontoImpostos"));
+                c.setDescontoImpostos(rs.getInt("descontoImpostos"));
                 lista.add(c);
             }
             return lista;
@@ -70,7 +70,7 @@ public class CargoDAO {
                 c.setSalario(rs.getFloat("salario"));
                 c.setRequisitos(rs.getString("requisitos"));
                 c.setCargaMinima(rs.getInt("cargaMinima"));
-                c.setDescontoImpostos(rs.getFloat("descontoImpostos"));
+                c.setDescontoImpostos(rs.getInt("descontoImpostos"));
                 lista.add(c);
             }
             return lista;
@@ -96,7 +96,7 @@ public class CargoDAO {
                 c.setSalario(rs.getFloat("salario"));
                 c.setRequisitos(rs.getString("requisitos"));
                 c.setCargaMinima(rs.getInt("cargaMinima"));
-                c.setDescontoImpostos(rs.getFloat("descontoImpostos"));
+                c.setDescontoImpostos(rs.getInt("descontoImpostos"));
             }
             return c;
         } catch (SQLException ex) {
@@ -117,7 +117,7 @@ public class CargoDAO {
             stmt.setFloat(2, cargo.getSalario());
             stmt.setString(3, cargo.getRequisitos());
             stmt.setInt(4, cargo.getCargaMinima());
-            stmt.setFloat(5, cargo.getDescontoImpostos());
+            stmt.setInt(5, cargo.getDescontoImpostos());
             stmt.setInt(6, cargo.getIdCargo());
             stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -150,7 +150,7 @@ public class CargoDAO {
             stmt.setFloat(2, cargo.getSalario());
             stmt.setString(3, cargo.getRequisitos());
             stmt.setInt(4, cargo.getCargaMinima());
-            stmt.setFloat(5, cargo.getDescontoImpostos());
+            stmt.setInt(5, cargo.getDescontoImpostos());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             out.println("Erro ao listar Cargos: " + ex.getMessage());

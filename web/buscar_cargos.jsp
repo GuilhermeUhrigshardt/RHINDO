@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <c:if test="${sessionScope.funcionario.departamento.nomeDepartamento != 'Gerencia' || sessionScope.funcionario.cargo.nomeCargo != 'Presidente'}"> <!--Trcar para RH e Gerente-->
     <c:redirect url="/erro.jsp">
@@ -44,10 +45,10 @@
                             <tr>
                                 <td>${item.idCargo}</td>
                                 <td>${item.nomeCargo}</td>
-                                <td>${item.salario}</td>
+                                <td>R<fmt:formatNumber value="${item.salario}" type="currency"/></td>
                                 <td>${item.requisitos}</td>
-                                <td>${item.cargaMinima}</td>
-                                <td>${item.descontoImpostos}</td>
+                                <td>${item.cargaMinima}h</td>
+                                <td><fmt:formatNumber type="percent" maxIntegerDigits="2" value="${item.descontoImpostos}"/></td>
                                 <td><a href="AlterarCargo?car=<c:out value="${item.idCargo}"/>"><input type="button" name="Alterar" value="Alterar" /></a></td>
                                 <td><a href="RemoverCargo?car=<c:out value="${item.idCargo}"/>"><input type="button" name="Remover" value="Remover" /></a></td>                                
                             </tr>

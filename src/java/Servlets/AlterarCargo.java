@@ -55,7 +55,7 @@ public class AlterarCargo extends HttpServlet {
             cargo.setSalario(Float.valueOf(request.getParameter("Salario")));
             cargo.setRequisitos(request.getParameter("Requisitos"));
             cargo.setCargaMinima(Integer.valueOf(request.getParameter("CargaMinima")));
-            cargo.setDescontoImpostos(Float.valueOf(request.getParameter("DescontoImpostos")));
+            cargo.setDescontoImpostos(Integer.valueOf(request.getParameter("DescontoImpostos")));
             cargoDAO.atualizarCargo(cargo);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_cargos.jsp");
             rd.forward(request, response);

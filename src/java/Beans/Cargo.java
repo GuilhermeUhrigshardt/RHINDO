@@ -17,7 +17,7 @@ public class Cargo implements Serializable {
     private float salario;
     private String requisitos;
     private int cargaMinima;
-    private float descontoImpostos;
+    private int descontoImpostos;
     
     public Cargo() {
         
@@ -63,11 +63,11 @@ public class Cargo implements Serializable {
         this.cargaMinima = cargaMinima;
     }
 
-    public float getDescontoImpostos() {
+    public int getDescontoImpostos() {
         return descontoImpostos;
     }
 
-    public void setDescontoImpostos(float descontoImpostos) {
+    public void setDescontoImpostos(int descontoImpostos) {
         this.descontoImpostos = descontoImpostos;
     }
     

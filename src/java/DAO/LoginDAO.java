@@ -46,7 +46,7 @@ public class LoginDAO {
                 c.setSalario(rs.getFloat("c.salario"));
                 c.setRequisitos(rs.getString("c.requisitos"));
                 c.setCargaMinima(rs.getInt("c.cargaMinima"));
-                c.setDescontoImpostos(rs.getFloat("c.descontoImpostos"));
+                c.setDescontoImpostos(rs.getInt("c.descontoImpostos"));
                 d.setNomeDepartamento(rs.getString("d.nomeDepartamento"));
                 d.setLocalizacao(rs.getString("d.localizacao"));
                 e.setRua(rs.getString("e.rua"));
