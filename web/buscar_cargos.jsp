@@ -27,6 +27,37 @@
             <br/><br/><br/>
             <h3>Busca Cargos</h3>
             <br/>
+            <c:choose>
+                <c:when test="${!empty lista}">
+                    <table border="1" cellspacing="1">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Salário</th>
+                            <th>Requisitos</th>
+                            <th>Carga Mínima</th>
+                            <th>Desconto Impostos</th>
+                            <th>Alterar</th>
+                            <th>Deletar</th>                            
+                        </tr>
+                        <c:forEach items="${lista}" var="item">
+                            <tr>
+                                <td>${item.idCargo}</td>
+                                <td>${item.nomeCargo}</td>
+                                <td>${item.salario}</td>
+                                <td>${item.requisitos}</td>
+                                <td>${item.cargaMinima}</td>
+                                <td>${item.descontoImpostos}</td>
+                                <td><a href="AlterarCargo?car=<c:out value="${item.idCargo}"/>"><input type="button" name="Alterar" value="Alterar" /></a></td>
+                                <td><a href="RemoverCargo?car=<c:out value="${item.idCargo}"/>"><input type="button" name="Remover" value="Remover" /></a></td>                                
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:when>
+                <c:otherwise>
+                    <h4>Não foram encontrados cargos com este nome!</h4>
+                </c:otherwise>
+            </c:choose>
         </center>
     </body>
 </html>

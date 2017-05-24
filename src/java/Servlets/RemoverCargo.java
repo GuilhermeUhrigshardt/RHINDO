@@ -5,7 +5,6 @@
  */
 package Servlets;
 
-import Beans.Cargo;
 import DAO.CargoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,8 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author guilh
  */
-@WebServlet(name = "AlterarCargo", urlPatterns = {"/AlterarCargo"})
-public class AlterarCargo extends HttpServlet {
+@WebServlet(name = "RemoverCargo", urlPatterns = {"/RemoverCargo"})
+public class RemoverCargo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,29 +36,13 @@ public class AlterarCargo extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         CargoDAO cargoDAO = new CargoDAO();
-        Cargo cargo = new Cargo();
-        //instancia cargo para popular campos
-        if (request.getParameter("car") != null) {
-            int id = Integer.valueOf(request.getParameter("car"));            
-            cargo = cargoDAO.buscarPorId(id);
-            request.setAttribute("cargo", cargo);
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/alterar_cargo.jsp");
-            rd.forward(request, response);
-        }
-        //realiza alteracao
-        else {
-            cargo.setIdCargo(Integer.valueOf(request.getParameter("Id")));
-            cargo.setNomeCargo(request.getParameter("Nome"));
-            cargo.setSalario(Float.valueOf(request.getParameter("Salario")));
-            cargo.setRequisitos(request.getParameter("Requisitos"));
-            cargo.setCargaMinima(Integer.valueOf(request.getParameter("CargaMinima")));
-            cargo.setDescontoImpostos(Float.valueOf(request.getParameter("DescontoImpostos")));
-            cargoDAO.atualizarCargo(cargo);
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_cargos.jsp");
-            rd.forward(request, response);
-        }
+        int id = Integer.valueOf(request.getParameter("car"));            
+        cargoDAO.removerCargo(id);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_cargos.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -77,9 +60,9 @@ public class AlterarCargo extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(AlterarCargo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RemoverCargo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AlterarCargo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RemoverCargo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -97,9 +80,9 @@ public class AlterarCargo extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(AlterarCargo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RemoverCargo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AlterarCargo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RemoverCargo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

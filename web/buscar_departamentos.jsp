@@ -27,24 +27,31 @@
             <br/><br/><br/>
             <h3>Busca Departamentos</h3>
             <br/>
-            <table border="1" cellspacing="1">
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Localização</th>
-                    <th>Deletar</th>
-                    <th>Alterar</th>
-                </tr>
-                <c:forEach items="${lista}" var="item">
-                    <tr>
-                        <td>${item.idDepartamento}</td>
-                        <td>${item.nomeDepartamento}</td>
-                        <td>${item.localizacao}</td>
-                        <td><a href="RemoverDepartamento?dep=<c:out value="${item.idDepartamento}"/>"><input type="button" name="Remover" value="Remover" /></a></td>
-                        <td><a href="AlterarDepartamento?dep=<c:out value="${item.idDepartamento}"/>"><input type="button" name="Alterar" value="Alterar" /></a></td>
-                    </tr>
-                </c:forEach>
-            </table>
+            <c:choose>
+                <c:when test="${!empty lista}">
+                    <table border="1" cellspacing="1">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Localização</th>
+                            <th>Alterar</th>
+                            <th>Deletar</th>                            
+                        </tr>
+                        <c:forEach items="${lista}" var="item">
+                            <tr>
+                                <td>${item.idDepartamento}</td>
+                                <td>${item.nomeDepartamento}</td>
+                                <td>${item.localizacao}</td>
+                                <td><a href="AlterarDepartamento?dep=<c:out value="${item.idDepartamento}"/>"><input type="button" name="Alterar" value="Alterar" /></a></td>
+                                <td><a href="RemoverDepartamento?dep=<c:out value="${item.idDepartamento}"/>"><input type="button" name="Remover" value="Remover" /></a></td>                                
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:when>
+                <c:otherwise>
+                    <h4>Não foram encontrados departamentos com este nome!</h4>
+                </c:otherwise>
+            </c:choose>
         </center>
     </body>
 </html>

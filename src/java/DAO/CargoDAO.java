@@ -22,47 +22,38 @@ public class CargoDAO {
     Connection con = null;
     PreparedStatement stmt = null;
     ResultSet rs = null; 
-    private String stmtBuscaCargo = "SELECT nomeCargo, salario, requisitos, cargaMinima, descontoImpostos FROM cargo WHERE idCargo = ?";
+    private String buscarPorNome = "select idCargo, nomeCargo, salario, requisitos, cargaMinima, descontoImpostos from Cargo where nomeCargo like ? order by idCargo";
     private String buscarTodos = "select idCargo, nomeCargo, salario, requisitos, cargaMinima, descontoImpostos from Cargo order by idCargo";
     private String buscarPorId = "select idCargo, nomeCargo, salario, requisitos, cargaMinima, descontoImpostos from Cargo where idCargo = ?";
     private String atualizarCargo = "update Cargo set nomeCargo = ?, salario = ?, requisitos = ?, cargaMinima = ? , descontoImpostos = ? where idCargo = ?";
+    private String removerCargo = "delete Cargo where idCargo = ?";
     
-    public Cargo lerCargo (int idCargo){
-        Connection con = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+    public List<Cargo> buscarPorNome(String nome) throws SQLException, ClassNotFoundException {
+        List<Cargo> lista = new ArrayList<>();
         try {
             con = ConnectionFactory.getConnection();
-            stmt = con.prepareStatement(stmtBuscaCargo);
-            stmt.setInt(1, idCargo);
-            rs = stmt.executeQuery();   
-            if (rs.next()) {
+            stmt = con.prepareStatement(buscarPorNome);
+            stmt.setString(1, "%" + nome + "%");
+            rs = stmt.executeQuery();
+            while (rs.next()) {
                 Cargo c = new Cargo();
-                c.setNomeCargo(rs.getString("nome"));
+                c.setIdCargo(rs.getInt("idCargo"));
+                c.setNomeCargo(rs.getString("nomeCargo"));
                 c.setSalario(rs.getFloat("salario"));
                 c.setRequisitos(rs.getString("requisitos"));
                 c.setCargaMinima(rs.getInt("cargaMinima"));
                 c.setDescontoImpostos(rs.getFloat("descontoImpostos"));
-                return c;
+                lista.add(c);
             }
-            else {
-                return null;
-            }
-        }
-        catch (SQLException ex) {
-            throw new RuntimeException("Erro ao buscar usuario " + ex.getMessage());
+            return lista;
+        } catch (SQLException ex) {
+            out.println("Erro ao listar Cargos: " + ex.getMessage());
         } finally {
-            try {
-                stmt.close();
-            } catch (Exception ex) {
-                System.out.println("Erro ao fechar stmt. Ex=" + ex.getMessage());
-            };
-            try {
-                con.close();
-            } catch (Exception ex) {
-                System.out.println("Erro ao fechar conexão. Ex=" + ex.getMessage());
-            };
+            stmt.close();
+            rs.close();
+            con.close();
         }
+        return lista;
     }
     
     public List<Cargo> buscarTodos() throws SQLException, ClassNotFoundException {
@@ -126,9 +117,24 @@ public class CargoDAO {
             stmt.setString(3, cargo.getRequisitos());
             stmt.setInt(4, cargo.getCargaMinima());
             stmt.setFloat(5, cargo.getDescontoImpostos());
+            stmt.setInt(6, cargo.getIdCargo());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             out.println("Erro ao listar Cargos: " + ex.getMessage());
+        } finally {
+            stmt.close();
+            con.close();
+        }
+    }
+    
+    public void removerCargo(int id) throws SQLException, ClassNotFoundException {
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(removerCargo);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            out.println("Erro ao remover Cargos: " + ex.getMessage());
         } finally {
             stmt.close();
             con.close();
