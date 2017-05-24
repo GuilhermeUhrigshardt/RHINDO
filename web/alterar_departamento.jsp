@@ -1,6 +1,6 @@
 <%-- 
-    Document   : buscar_departamentos
-    Created on : May 22, 2017, 9:22:59 PM
+    Document   : alterar_departamento
+    Created on : May 23, 2017, 7:15:55 PM
     Author     : guilh
 --%>
 
@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Buscar Departamentos</title>
+        <title>Alterar Departamento</title>
     </head>
     <body>
         <div style="text-align:left;">
@@ -25,26 +25,16 @@
             <h2>RH-INDO</h2>
             <a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a> | <a href="/RHINDO/manter_departamentos.jsp">Departamentos</a> | <a href="/RHINDO/manter_cargos.jsp">Cargos</a> | <a href="/RHINDO/folhas.jsp">Folhas</a> | <a href="/RHINDO/relatorios.jsp">Relatórios</a>
             <br/><br/><br/>
-            <h3>Busca Departamentos</h3>
+            <h3>Alterar Departamento</h3>
             <br/>
-            <table border="1" cellspacing="1">
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Localização</th>
-                    <th>Deletar</th>
-                    <th>Alterar</th>
-                </tr>
-                <c:forEach items="${lista}" var="item">
-                    <tr>
-                        <td>${item.idDepartamento}</td>
-                        <td>${item.nomeDepartamento}</td>
-                        <td>${item.localizacao}</td>
-                        <td><a href="RemoverDepartamento?dep=<c:out value="${item.idDepartamento}"/>"><input type="button" name="Remover" value="Remover" /></a></td>
-                        <td><a href="AlterarDepartamento?dep=<c:out value="${item.idDepartamento}"/>"><input type="button" name="Alterar" value="Alterar" /></a></td>
-                    </tr>
-                </c:forEach>
-            </table>
+            <form action="AlterarDepartamento" method="POST">
+                <input type="hidden" name="Id" value="<c:out value="${departamento.idDepartamento}"/>">
+                Nome: <input type="text" name="Nome" value="<c:out value="${departamento.nomeDepartamento}"/>">
+                <br/>
+                Localização: <input type="text" name="Localizacao" value="<c:out value="${departamento.localizacao}"/>">
+                <br/>
+                <input type="submit" value="Alterar">
+            </form>
         </center>
     </body>
 </html>
