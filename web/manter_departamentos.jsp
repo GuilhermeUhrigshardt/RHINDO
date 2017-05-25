@@ -28,7 +28,6 @@
                         <a class="navbar-brand" href="#">RH-INDO</a>
                       </div>
                       <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
                         <li><a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a></li>
                         <li><a href="/RHINDO/manter_departamentos.jsp">Departamentos</a></li>
                         <li><a href="/RHINDO/manter_cargos.jsp">Cargos</a></li>
