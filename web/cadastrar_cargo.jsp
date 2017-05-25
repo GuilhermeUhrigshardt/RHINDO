@@ -19,7 +19,7 @@
         <script src="js/jquery.maskMoney.js" type="text/javascript"></script>
         <script type="text/javascript">
             $(function(){
-                $("#valor").maskMoney({symbol:'R$ ', 
+                $("#valor").maskMoney({symbol:'R$', 
                 showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
             })
         </script>
@@ -39,7 +39,7 @@
             <form action="CadastrarCargo" method="POST">
                 Nome: <input type="text" name="Nome" placeholder="Nome">
                 <br/>
-                Salário: <input type="text" name="Salario" id="valor" placeholder="R$ 0,00">
+                Salário: <input type="text" name="Salario" id="valor" placeholder="R$0,00">
                 <br/>
                 Requisitos: <input type="text" name="Requisitos" placeholder="Requisitos">
                 <br/>
