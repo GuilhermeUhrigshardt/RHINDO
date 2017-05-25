@@ -41,7 +41,10 @@ public class CadastrarCargo extends HttpServlet {
         CargoDAO cargoDAO = new CargoDAO();
         Cargo cargo = new Cargo();
         cargo.setNomeCargo(request.getParameter("Nome"));
-        cargo.setSalario(Float.valueOf(request.getParameter("Salario")));
+        String salario = request.getParameter("Salario").replaceAll("[^\\d.]+", "");
+        salario = salario.replaceAll("[.]","");
+        salario = new StringBuilder(salario).insert(salario.length()-2, ".").toString();
+        cargo.setSalario(Float.valueOf(salario));
         cargo.setRequisitos(request.getParameter("Requisitos"));
         cargo.setCargaMinima(Integer.valueOf(request.getParameter("CargaMinima")));
         cargo.setDescontoImpostos(Integer.valueOf(request.getParameter("DescontoImpostos")));
