@@ -45,10 +45,10 @@
                             <tr>
                                 <td>${item.idCargo}</td>
                                 <td>${item.nomeCargo}</td>
-                                <td>R<fmt:formatNumber value="${item.salario}" type="currency"/></td>
+                                <td><fmt:setLocale value = "pt_BR"/><fmt:formatNumber value="${item.salario}" type="currency"/></td>
                                 <td>${item.requisitos}</td>
                                 <td>${item.cargaMinima}h</td>
-                                <td><fmt:formatNumber type="percent" maxIntegerDigits="2" value="${item.descontoImpostos}"/></td>
+                                <td>${item.descontoImpostos}%</td>
                                 <td><a href="AlterarCargo?car=<c:out value="${item.idCargo}"/>"><input type="button" name="Alterar" value="Alterar" /></a></td>
                                 <td><a href="RemoverCargo?car=<c:out value="${item.idCargo}"/>"><input type="button" name="Remover" value="Remover" /></a></td>                                
                             </tr>

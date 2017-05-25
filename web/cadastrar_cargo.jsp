@@ -14,6 +14,15 @@
 </c:if>
 <html>
     <head>
+        <script src="js/jquery-3.2.1.js"></script>
+        <script src="js/jquery-3.1.1.min.js"></script>
+        <script src="js/jquery.maskMoney.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function(){
+                $("#valor").maskMoney({symbol:'R$ ', 
+                showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
+            })
+        </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cadastrar Cargo</title>
     </head>
@@ -30,7 +39,7 @@
             <form action="CadastrarCargo" method="POST">
                 Nome: <input type="text" name="Nome" placeholder="Nome">
                 <br/>
-                Salário: <input type="text" name="Salario" placeholder="Salário">
+                Salário: <input type="text" name="Salario" id="valor" placeholder="R$ 0,00">
                 <br/>
                 Requisitos: <input type="text" name="Requisitos" placeholder="Requisitos">
                 <br/>

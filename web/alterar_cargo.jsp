@@ -14,6 +14,15 @@
 </c:if>
 <html>
     <head>
+        <script src="js/jquery-3.2.1.js"></script>
+        <script src="js/jquery-3.1.1.min.js"></script>
+        <script src="js/jquery.maskMoney.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function(){
+                $("#valor").maskMoney({symbol:'R$ ', 
+                showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
+            })
+        </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Alterar Cargo</title>
     </head>
@@ -31,7 +40,7 @@
                 <input type="hidden" name="Id" value="<c:out value="${cargo.idCargo}"/>">
                 Nome: <input type="text" name="Nome" value="<c:out value="${cargo.nomeCargo}"/>">
                 <br/>
-                Salário: <input type="text" name="Salario" value="<c:out value="${cargo.salario}"/>">
+                Salário: <input type="text" name="Salario" id="valor" value="<c:out value="${cargo.salario}"/>">
                 <br/>
                 Requisitos: <input type="text" name="Requisitos" value="<c:out value="${cargo.requisitos}"/>">
                 <br/>
