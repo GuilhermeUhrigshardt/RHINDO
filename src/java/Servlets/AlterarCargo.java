@@ -38,6 +38,11 @@ public class AlterarCargo extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
         HttpSession session = request.getSession();
+        if (session.getAttribute("funcionario") == null) {
+            request.setAttribute("msg", "Acesso negado!");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);
+        }
         CargoDAO cargoDAO = new CargoDAO();
         Cargo cargo = new Cargo();
         //instancia cargo para popular campos

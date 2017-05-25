@@ -38,6 +38,11 @@ public class AlterarDepartamento extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
         HttpSession session = request.getSession();
+        if (session.getAttribute("funcionario") == null) {
+            request.setAttribute("msg", "Acesso negado!");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);
+        }
         DepartamentoDAO departamentoDAO = new DepartamentoDAO();
         Departamento departamento = new Departamento();
         //instancia departamento para popular campos

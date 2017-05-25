@@ -36,7 +36,12 @@ public class RemoverDepartamento extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
+        if (session.getAttribute("funcionario") == null) {
+            request.setAttribute("msg", "Acesso negado!");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);
+        }
         DepartamentoDAO departamentoDAO = new DepartamentoDAO();
         int id = Integer.valueOf(request.getParameter("dep"));            
         departamentoDAO.removerDepartamento(id);

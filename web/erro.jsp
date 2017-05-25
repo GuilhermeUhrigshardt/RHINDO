@@ -20,7 +20,7 @@
                     <h3>${param.msg}</h3>
                 </c:when>
                 <c:otherwise>
-                    <h3>${msg}</h3>
+                    <h3>${requestScope.msg}</h3>
                 </c:otherwise>
             </c:choose>
         </center>

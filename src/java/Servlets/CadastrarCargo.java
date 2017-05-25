@@ -37,7 +37,12 @@ public class CadastrarCargo extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
+        if (session.getAttribute("funcionario") == null) {
+            request.setAttribute("msg", "Acesso negado!");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);
+        }
         CargoDAO cargoDAO = new CargoDAO();
         Cargo cargo = new Cargo();
         cargo.setNomeCargo(request.getParameter("Nome"));

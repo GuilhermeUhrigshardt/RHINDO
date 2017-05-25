@@ -41,6 +41,11 @@ public class BuscarDepartamento extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
         HttpSession session = request.getSession();
+        if (session.getAttribute("funcionario") == null) {
+            request.setAttribute("msg", "Acesso negado!");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response);
+        }
         String nome = request.getParameter("buscaDepartamento");
         DepartamentoDAO departamentoDAO = new DepartamentoDAO();
         List<Departamento> lista = new ArrayList<>();
