@@ -10,17 +10,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="css/bootstrap.css" type="text/css" rel="stylesheet">
         <title>RH-INDO</title>
     </head>
     <body>
         <center>
             <h4>${msg}</h4>
-            <h2>RH-INDO</h2>
-            <form action="http://localhost:21836/RHINDO/ProcessaLogin" method="post">
-                Email:<input type="text" name="email" id="email"><br/>
-                Senha:<input type="password" name="senha" id="senha"><br/>
-                <input type="submit" value="Logar">
-            </form>
+            <div class="container " style="width: 35%">
+                <h2>RH-INDO</h2>
+                <form action="http://localhost:8080/RHINDO/ProcessaLogin" method="post">
+                    <div align="center" class="form-group jumbotron">
+                        Email:<input class="form-control" type="text" name="email" id="email"><br/>
+                        Senha:<input class="form-control" type="password" name="senha" id="senha"><br/>
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Logar">
+                    </div>
+                </form>
+            </div>
         </center>
     </body>
 </html>

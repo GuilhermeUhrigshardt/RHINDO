@@ -9,28 +9,20 @@ and open the template in the editor.
         <title>RH-INDO</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="bootstrap.css" type="text/css" rel="stylesheet">
+        <link href="css/bootstrap.css" type="text/css" rel="stylesheet">
     </head>
     <body><br><br>
         <center>
-        <div class="container ">
-            <h2>RH-INDO</h2>
-            <form action="http://localhost:8080/RHINDO/ProcessaLogin" method="post" >
-                <table align="center" >
-                    <tr class="form-group">                       
-                        <th align="right">Email:</th>
-                        <td><input type="text" class="form-control" name="email" id="email"></td>
-                    </tr><br>
-                    <tr class="form-group">
-                       <th align="right">Senha:</th>
-                       <td><input type="password" class="form-control" name="senha" id="senha"></td>
-                    </tr><br>
-                    <tr class="form-group">
-                        <td colspan="3" align="right"><input type="submit" class="btn btn-primary btn-lg btn-block" value="Logar"></td>
-                    </tr>
-                </table>
-            </form>
-        </div>
+            <div class="container " style="width: 35%">
+                <h2>RH-INDO</h2>
+                <form action="http://localhost:8080/RHINDO/ProcessaLogin" method="post" >
+                    <div align="center" class="form-group jumbotron">                    
+                        Email <input type="text" class="form-control" name="email" id="email"><br>
+                        Senha <input type="password" class="form-control" name="senha" id="senha"><br>
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Logar">
+                    </div>
+                </form>
+            </div>
         </center>
     </body>
 </html>
