@@ -55,15 +55,31 @@ public class AlterarCargo extends HttpServlet {
         }
         //realiza alteracao
         else {
-            cargo.setIdCargo(Integer.valueOf(request.getParameter("Id")));
-            cargo.setNomeCargo(request.getParameter("Nome"));
-            cargo.setSalario(Float.valueOf(request.getParameter("Salario")));
-            cargo.setRequisitos(request.getParameter("Requisitos"));
-            cargo.setCargaMinima(Integer.valueOf(request.getParameter("CargaMinima")));
-            cargo.setDescontoImpostos(Integer.valueOf(request.getParameter("DescontoImpostos")));
-            cargoDAO.atualizarCargo(cargo);
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_cargos.jsp");
-            rd.forward(request, response);
+            try {
+                cargo.setIdCargo(Integer.valueOf(request.getParameter("Id")));
+                cargo.setNomeCargo(request.getParameter("Nome"));
+                String salario = request.getParameter("Salario").replaceAll("[^\\d.]+", "");
+                if (salario.length() > 2) {
+                    salario = salario.replaceAll("[.]","");
+                    salario = new StringBuilder(salario).insert(salario.length()-2, ".").toString();
+                }
+                cargo.setSalario(Float.valueOf(request.getParameter("Salario")));
+                cargo.setRequisitos(request.getParameter("Requisitos"));
+                cargo.setCargaMinima(Integer.valueOf(request.getParameter("CargaMinima")));
+                cargo.setDescontoImpostos(Integer.valueOf(request.getParameter("DescontoImpostos")));
+                if (cargo.validaCargo(cargo)) {
+                    cargoDAO.atualizarCargo(cargo);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_cargos.jsp");
+                    rd.forward(request, response);
+                }
+            }
+            catch (Exception e) {
+            }
+            finally {
+                request.setAttribute("msg", "Valores inválidos!");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+                rd.forward(request, response);
+            }
         }
     }
 

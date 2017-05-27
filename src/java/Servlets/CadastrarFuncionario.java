@@ -6,10 +6,16 @@
 package Servlets;
 
 import Beans.Cargo;
+import Beans.Departamento;
+import Beans.Funcionario;
 import DAO.CargoDAO;
+import DAO.DepartamentoDAO;
+import DAO.FuncionarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -24,8 +30,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author guilh
  */
-@WebServlet(name = "CadastrarCargo", urlPatterns = {"/CadastrarCargo"})
-public class CadastrarCargo extends HttpServlet {
+@WebServlet(name = "CadastrarFuncionario", urlPatterns = {"/CadastrarFuncionario"})
+public class CadastrarFuncionario extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,29 +49,17 @@ public class CadastrarCargo extends HttpServlet {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
             rd.forward(request, response);
         }
-        try {
-            CargoDAO cargoDAO = new CargoDAO();
-            Cargo cargo = new Cargo();
-            cargo.setNomeCargo(request.getParameter("Nome"));
-            String salario = request.getParameter("Salario").replaceAll("[^\\d.]+", "");
-            salario = salario.replaceAll("[.]","");
-            salario = new StringBuilder(salario).insert(salario.length()-2, ".").toString();
-            cargo.setSalario(Float.valueOf(salario));
-            cargo.setRequisitos(request.getParameter("Requisitos"));
-            cargo.setCargaMinima(Integer.valueOf(request.getParameter("CargaMinima")));
-            cargo.setDescontoImpostos(Integer.valueOf(request.getParameter("DescontoImpostos")));
-            if (cargo.validaCargo(cargo)) {
-                cargoDAO.cadastrarCargo(cargo);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_cargos.jsp");
-                rd.forward(request, response);
-            }
-        }
-        catch (Exception e) {
-        }
-        finally {
-            request.setAttribute("msg", "Valores inválidos!");
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
-            rd.forward(request, response);
+        Funcionario funcionario = new Funcionario();
+        Departamento departamento = new Departamento();
+        Cargo cargo = new Cargo();
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+        DepartamentoDAO departamentoDAO = new DepartamentoDAO();
+        CargoDAO cargoDAO = new CargoDAO();
+        if (request.getParameter("fun") == null) {
+            List<Departamento> listaDepartamentos = new ArrayList<>();
+            List<Cargo> listaCargos = new ArrayList<>();
+            //listaDepartamentos = departamentoDAO.buscarNomes();
+            //listaCargos = cargoDAO.buscarNomes();
         }
     }
 
@@ -84,9 +78,9 @@ public class CadastrarCargo extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(CadastrarCargo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CadastrarCargo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -104,9 +98,9 @@ public class CadastrarCargo extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(CadastrarCargo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CadastrarCargo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

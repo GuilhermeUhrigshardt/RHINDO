@@ -71,5 +71,13 @@ public class Cargo implements Serializable {
         this.descontoImpostos = descontoImpostos;
     }
     
-    
+    public boolean validaCargo(Cargo cargo){
+        if (cargo.getDescontoImpostos() > 100) 
+            return false;
+        if (cargo.getDescontoImpostos() < 0)
+            return false;
+        if (cargo.getSalario() < 0)
+            return false;
+        return cargo.getCargaMinima() >= 0;
+    }
 }
