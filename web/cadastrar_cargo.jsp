@@ -14,15 +14,6 @@
 </c:if>
 <html>
     <head>
-        <script src="js/jquery-3.2.1.js"></script>
-        <script src="js/jquery-3.1.1.min.js"></script>
-        <script src="js/jquery.maskMoney.js" type="text/javascript"></script>
-        <script type="text/javascript">
-            $(function(){
-                $("#valor").maskMoney({symbol:'R$', 
-                showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
-            })
-        </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cadastrar Cargo</title>
     </head>
@@ -43,13 +34,29 @@
                 <br/>
                 Requisitos: <input type="text" name="Requisitos" placeholder="Requisitos">
                 <br/>
-                Carga Mínima: <input type="text" name="CargaMinima" placeholder="Carga Mínima(horas)">
+                Carga Mínima: <input type="text" name="CargaMinima" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Carga Mínima(horas)">
                 <br/>
-                Desconto Impostos: <input type="text" name="DescontoImpostos" placeholder="Desconto Impostos(%)">
+                Desconto Impostos: <input type="text" name="DescontoImpostos" onkeypress='return event.charCode >= 48 && event.charCode <= 57' onchange="handleChange(this);" placeholder="Desconto Impostos(%)">
                 <br/>
                 <input type="reset" value="Limpar">
                 <input type="submit" value="Cadastrar">
             </form>
-        </center> 
+        </center>
+        <script src="js/jquery-3.2.1.js"></script>
+        <script src="js/jquery-3.1.1.min.js"></script>
+        <script src="js/jquery.mask.js" type="text/javascript"></script>
+        <script src="js/jquery.maskMoney.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#valor").val(R$0,00);
+            });
+            $(document).focusin(function(){
+                $("#valor").maskMoney({symbol:'R$', showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
+            });            
+            function handleChange(input) {
+                if (input.value < 0) input.value = 0;
+                if (input.value > 100) input.value = 100;
+            }
+        </script>
     </body>
 </html>
