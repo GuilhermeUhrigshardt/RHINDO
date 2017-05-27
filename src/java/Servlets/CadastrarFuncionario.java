@@ -7,9 +7,11 @@ package Servlets;
 
 import Beans.Cargo;
 import Beans.Departamento;
+import Beans.Endereco;
 import Beans.Funcionario;
 import DAO.CargoDAO;
 import DAO.DepartamentoDAO;
+import DAO.EnderecoDAO;
 import DAO.FuncionarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -51,15 +53,24 @@ public class CadastrarFuncionario extends HttpServlet {
         }
         Funcionario funcionario = new Funcionario();
         Departamento departamento = new Departamento();
+        Endereco endereco = new Endereco();
         Cargo cargo = new Cargo();
         FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         DepartamentoDAO departamentoDAO = new DepartamentoDAO();
+        EnderecoDAO enderecoDAO = new EnderecoDAO();
         CargoDAO cargoDAO = new CargoDAO();
         if (request.getParameter("fun") == null) {
             List<Departamento> listaDepartamentos = new ArrayList<>();
             List<Cargo> listaCargos = new ArrayList<>();
-            //listaDepartamentos = departamentoDAO.buscarNomes();
-            //listaCargos = cargoDAO.buscarNomes();
+            List<Endereco> listaEnderecos = new ArrayList<>();
+            listaDepartamentos = departamentoDAO.buscarNomes();
+            listaCargos = cargoDAO.buscarNomes();
+            listaEnderecos = enderecoDAO.buscarUfs();
+            request.setAttribute("listaDepartamento", listaDepartamentos);
+            request.setAttribute("listaCargo", listaCargos);
+            request.setAttribute("listaEndereco", listaEnderecos);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastrar_funcionario.jsp");
+            rd.forward(request, response);
         }
     }
 

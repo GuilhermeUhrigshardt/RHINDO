@@ -52,7 +52,7 @@
                             <input type="submit" class="btn btn-primary" value="Buscar">
                     </form>
                     <br/><br/>
-                    <a href="cadastrar_funcionario.jsp"><input class="btn btn-primary" type="submit" value="Cadastrar"></a>
+                    <a href="CadastrarFuncionario"><input class="btn btn-primary" type="submit" value="Cadastrar"></a>
                 </div>
             </div>
         </center>

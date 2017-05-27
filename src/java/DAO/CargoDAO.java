@@ -28,6 +28,7 @@ public class CargoDAO {
     private String atualizarCargo = "update Cargo set nomeCargo = ?, salario = ?, requisitos = ?, cargaMinima = ? , descontoImpostos = ? where idCargo = ?";
     private String removerCargo = "delete from Cargo where idCargo = ?";
     private String cadastrarCargo = "insert into Cargo (nomeCargo, salario, requisitos, cargaMinima, descontoImpostos) values (?, ?, ?, ?, ?)";
+    private String buscarNome = "select idCargo, nomeCargo from Cargo order by idCargo";
     
     public List<Cargo> buscarPorNome(String nome) throws SQLException, ClassNotFoundException {
         List<Cargo> lista = new ArrayList<>();
@@ -158,5 +159,28 @@ public class CargoDAO {
             stmt.close();
             con.close();
         }
+    }
+    
+    public List<Cargo> buscarNomes() throws SQLException, ClassNotFoundException {
+        List<Cargo> lista = new ArrayList<>();
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(buscarNome);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Cargo c = new Cargo();
+                c.setIdCargo(rs.getInt("idCargo"));
+                c.setNomeCargo(rs.getString("nomeCargo"));
+                lista.add(c);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            out.println("Erro ao listar Departamentos: " + ex.getMessage());
+        } finally {
+            stmt.close();
+            rs.close();
+            con.close();
+        }
+        return lista;
     }
 }

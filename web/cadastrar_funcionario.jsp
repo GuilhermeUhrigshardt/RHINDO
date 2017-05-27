@@ -52,11 +52,26 @@
                 <br/>
                 Cidade: <input type="text" name="Cidade" placeholder="Curitiba">
                 <br/>
-                Estado: <input type="text" name="DescontoImpostos" onchange="handleChange(this);" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Desconto Impostos(%)">
+                Estado: 
+                <select>
+                    <c:forEach items="${listaEndereco}" var="uf">
+                        <option value="${uf.uf}">${uf.uf}</option>
+                    </c:forEach>
+                </select>
                 <br/>
-                Departamento: <input type="text" name="DescontoImpostos" onchange="handleChange(this);" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Desconto Impostos(%)">
+                Departamento: 
+                <select>
+                    <c:forEach items="${listaDepartamento}" var="departamento">
+                        <option value="${departamento.nomeDepartamento}">${departamento.nomeDepartamento}</option>
+                    </c:forEach>
+                </select>
                 <br/>
-                Cargo: <input type="text" name="DescontoImpostos" onchange="handleChange(this);" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Desconto Impostos(%)">
+                Cargo: 
+                <select>
+                    <c:forEach items="${listaCargo}" var="cargo">
+                        <option value="${cargo.nomeCargo}">${cargo.nomeCargo}</option>
+                    </c:forEach>
+                </select>
                 <br/>
                 Senha: <input type="text" name="DescontoImpostos" onchange="handleChange(this);" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Desconto Impostos(%)">
                 <br/>
@@ -66,25 +81,7 @@
                 <input type="submit" value="Cadastrar">
             </form>
         </center>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                    debugger;               
-                    var tot = $("#valor").val();
-                    debugger;
-                    var tot = 'R$ ' + parseFloat(tot).toFixed(2).replace(/(\d.)(?=(\d\d\d)+(?!\d))/g, "$1,");
-                    debugger
-                    var tot = tot.replace(".", ",");
-                    debugger;
-                    $("#valor").val(tot);
-                    $('#valor').focus(function(){
-                    debugger;
-                    $("#valor").maskMoney({symbol:'R$', showSymbol:true, thousands:'.', decimal:',', symbolStay: true}); 
-                });
-            });
-            function handleChange(input) {
-                if (input.value < 0) input.value = 0;
-                if (input.value > 100) input.value = 100;
-            }
+        <script type="text/javascript">            
         </script>
     </body>
 </html>

@@ -22,7 +22,7 @@ public class EnderecoDAO {
     Connection con = null;
     PreparedStatement stmt = null;
     ResultSet rs = null;
-    private String buscarUf = "select sigla from UF order by idUf";
+    private String buscarUf = "select idUF, sigla from UF order by idUF";
     
     public List<Endereco> buscarUfs() throws SQLException, ClassNotFoundException {
         List<Endereco> lista = new ArrayList<>();
@@ -32,6 +32,7 @@ public class EnderecoDAO {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Endereco e = new Endereco();
+                e.setIdUf(rs.getInt("idUF"));
                 e.setUf(rs.getString("sigla"));
                 lista.add(e);
             }

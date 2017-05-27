@@ -24,7 +24,7 @@ public class DepartamentoDAO {
     ResultSet rs = null;    
     private String buscarPorNome = "select idDepartamento, nomeDepartamento, localizacao from Departamento where nomeDepartamento like ? order by idDepartamento";    
     private String buscarTodos = "select idDepartamento, nomeDepartamento, localizacao from Departamento order by idDepartamento";
-    private String buscarNome = "select nomeDepartamento from Departamento order by idDepartamento";
+    private String buscarNome = "select idDepartamento, nomeDepartamento from Departamento order by idDepartamento";
     private String buscarPorId = "select idDepartamento, nomeDepartamento, localizacao from Departamento where idDepartamento = ?";
     private String atualizarDepartamento = "update Departamento set nomeDepartamento = ?, localizacao = ? where idDepartamento = ?";
     private String removerDepartamento = "delete from Departamento where idDepartamento = ?";
@@ -78,15 +78,15 @@ public class DepartamentoDAO {
         return lista;
     }
     
-    public List<Departamento> buscarNomes(String nome) throws SQLException, ClassNotFoundException {
+    public List<Departamento> buscarNomes() throws SQLException, ClassNotFoundException {
         List<Departamento> lista = new ArrayList<>();
         try {
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(buscarNome);
-            stmt.setString(1, "%" + nome + "%");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Departamento d = new Departamento();
+                d.setIdDepartamento(rs.getInt("idDepartamento"));
                 d.setNomeDepartamento(rs.getString("nomeDepartamento"));
                 lista.add(d);
             }
