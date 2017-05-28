@@ -44,5 +44,9 @@ public class Departamento implements Serializable {
         this.localizacao = localizacao;
     }
     
-    
+    public boolean validaDepartamento(Departamento departamento) {
+        if (departamento.getLocalizacao().equals("")|| departamento.getNomeDepartamento().equals(""))
+            return false;
+        return true;
+    }
 }

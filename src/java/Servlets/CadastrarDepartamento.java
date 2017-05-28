@@ -47,9 +47,14 @@ public class CadastrarDepartamento extends HttpServlet {
         Departamento departamento = new Departamento();
         departamento.setNomeDepartamento(request.getParameter("Nome"));
         departamento.setLocalizacao(request.getParameter("Localizacao"));
-        departamentoDAO.cadastrarDepartamento(departamento);
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_departamentos.jsp");
-        rd.forward(request, response);
+        if (departamento.validaDepartamento(departamento)) {
+            departamentoDAO.cadastrarDepartamento(departamento);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_departamentos.jsp");
+            rd.forward(request, response);
+        }
+        request.setAttribute("msg", "Valores inválidos!");
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+        rd.forward(request, response);        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

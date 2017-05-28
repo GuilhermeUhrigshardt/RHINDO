@@ -29,16 +29,17 @@
             <h2>RH-INDO</h2>
             <a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a> | <a href="/RHINDO/manter_departamentos.jsp">Departamentos</a> | <a href="/RHINDO/manter_cargos.jsp">Cargos</a> | <a href="/RHINDO/folhas.jsp">Folhas</a> | <a href="/RHINDO/relatorios.jsp">Relatórios</a>
             <br/><br/><br/>
-            <h3>Cadastrar Cargo</h3>
+            <h3>Cadastrar Funcionário</h3>
             <br/>
-            <form action="CadastrarCargo" method="POST">
+            <form action="CadastrarFuncionario" onsubmit="return checarSenha()" method="POST">
+                <input type="hidden" name="ver" value="1">
                 Nome: <input type="text" name="Nome" placeholder="Nome">
                 <br/>
-                CPF: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Cpf" placeholder="CPF">
+                CPF: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Cpf" id="cpf" placeholder="999.999.999-99">
                 <br/>
-                RG: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Rg" placeholder="RG">
+                RG: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Rg" id="rg" placeholder="99.999.999-9">
                 <br/>
-                Celular: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="CargaMinima" placeholder="(99)99999-9999">
+                Celular: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Celular" id="cel" placeholder="(99)99999-9999">
                 <br/>
                 Email: <input type="email" name="Email" placeholder="email@example.com">
                 <br/>
@@ -48,40 +49,56 @@
                 <br/>
                 Bairro: <input type="text" name="Bairro" placeholder="Jardim das Americas">
                 <br/>
-                CEP: <input type="text" name="Cep" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="99999-999">
+                CEP: <input type="text" name="Cep" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="cep" placeholder="99999-999">
                 <br/>
                 Cidade: <input type="text" name="Cidade" placeholder="Curitiba">
                 <br/>
                 Estado: 
-                <select>
+                <select name="Estado">
                     <c:forEach items="${listaEndereco}" var="uf">
-                        <option value="${uf.uf}">${uf.uf}</option>
+                        <option value="${uf.idUf}">${uf.uf}</option>
                     </c:forEach>
                 </select>
                 <br/>
                 Departamento: 
-                <select>
+                <select name="Departamento">
                     <c:forEach items="${listaDepartamento}" var="departamento">
-                        <option value="${departamento.nomeDepartamento}">${departamento.nomeDepartamento}</option>
+                        <option value="${departamento.idDepartamento}">${departamento.nomeDepartamento}</option>
                     </c:forEach>
                 </select>
                 <br/>
                 Cargo: 
-                <select>
+                <select name="Cargo">
                     <c:forEach items="${listaCargo}" var="cargo">
-                        <option value="${cargo.nomeCargo}">${cargo.nomeCargo}</option>
+                        <option value="${cargo.idCargo}">${cargo.nomeCargo}</option>
                     </c:forEach>
                 </select>
                 <br/>
-                Senha: <input type="text" name="DescontoImpostos" onchange="handleChange(this);" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Desconto Impostos(%)">
+                Senha: <input type="password" name="Senha" id="senha" placeholder="*********">
                 <br/>
-                Confirmar Senha: <input type="text" name="DescontoImpostos" onchange="handleChange(this);" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Desconto Impostos(%)">
+                Confirmar Senha: <input type="password" name="Confsenha" id="senhaconf" placeholder="*********">
                 <br/>
                 <input type="reset" value="Limpar">
                 <input type="submit" value="Cadastrar">
             </form>
         </center>
-        <script type="text/javascript">            
+        <script type="text/javascript">
+            $(document).ready(function(){
+              $('#cep').mask('00000-000');
+              $('#cel').mask('(00)00000-0000');
+              $('#cpf').mask('000.000.000-00', {reverse: true});
+              $('#rg').mask('00.000.000-0', {reverse: true});
+            });
+            function checarSenha() {
+                var senha = document.getElementById("senha").value;
+                var senhaconf = document.getElementById("senhaconf").value;
+                var check = true;
+                if (senha != senhaconf) {
+                    alert("Senhas não conferem!");
+                    check = false;                    
+                }
+                return check;
+            }
         </script>
     </body>
 </html>

@@ -78,6 +78,8 @@ public class Cargo implements Serializable {
             return false;
         if (cargo.getSalario() < 0)
             return false;
+        if (cargo.getNomeCargo().equals("")|| cargo.getRequisitos().equals(""))
+            return false;
         return cargo.getCargaMinima() >= 0;
     }
 }

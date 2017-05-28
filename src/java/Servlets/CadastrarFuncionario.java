@@ -15,6 +15,8 @@ import DAO.EnderecoDAO;
 import DAO.FuncionarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +46,7 @@ public class CadastrarFuncionario extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException, NoSuchAlgorithmException {
         HttpSession session = request.getSession(false);
         if (session.getAttribute("funcionario") == null) {
             request.setAttribute("msg", "Acesso negado!");
@@ -59,7 +61,7 @@ public class CadastrarFuncionario extends HttpServlet {
         DepartamentoDAO departamentoDAO = new DepartamentoDAO();
         EnderecoDAO enderecoDAO = new EnderecoDAO();
         CargoDAO cargoDAO = new CargoDAO();
-        if (request.getParameter("fun") == null) {
+        if (request.getParameter("ver") == null) {
             List<Departamento> listaDepartamentos = new ArrayList<>();
             List<Cargo> listaCargos = new ArrayList<>();
             List<Endereco> listaEnderecos = new ArrayList<>();
@@ -71,6 +73,65 @@ public class CadastrarFuncionario extends HttpServlet {
             request.setAttribute("listaEndereco", listaEnderecos);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/cadastrar_funcionario.jsp");
             rd.forward(request, response);
+        }
+        else {
+            try {
+                endereco.setRua(request.getParameter("Rua"));
+                endereco.setNumero(Integer.valueOf(request.getParameter("Numero")));
+                endereco.setBairro(request.getParameter("Bairro"));
+                String cep = request.getParameter("Cep").replaceAll("[^\\d.]+", "");
+                cep = cep.replaceAll("[.]","");
+                endereco.setCep(cep);
+                endereco.setCidade(request.getParameter("Cidade"));
+                endereco.setIdUf(Integer.valueOf(request.getParameter("Estado")));
+                enderecoDAO.cadastrarEndereco(endereco);
+                int idEndereco = enderecoDAO.buscarIdEndereco();
+                endereco.setIdEndereco(idEndereco);
+                departamento.setIdDepartamento(Integer.valueOf(request.getParameter("Departamento")));
+                cargo. setIdCargo(Integer.valueOf(request.getParameter("Cargo")));
+                funcionario.setNomeFuncionario(request.getParameter("Nome"));
+                String cpf = request.getParameter("Cpf").replaceAll("[^\\d.]+", "");
+                cpf = cpf.replaceAll("[.]","");
+                funcionario.setCpf(cpf);
+                String rg = request.getParameter("Rg").replaceAll("[^\\d.]+", "");
+                rg = rg.replaceAll("[.]","");
+                funcionario.setRg(rg);
+                String celular = request.getParameter("Celular").replaceAll("[^\\d.]+", "");
+                celular = celular.replaceAll("[.]","");
+                funcionario.setCelular(celular);
+                funcionario.setEmail(request.getParameter("Email"));
+                funcionario.setEndereco(endereco);
+                funcionario.setDepartamento(departamento);
+                funcionario.setCargo(cargo);
+                if (request.getParameter("Senha") == null || request.getParameter("Senha").equals("")) {
+                    request.setAttribute("msg", "Senha nao pode ser vazia!");
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+                    rd.forward(request, response);
+                }
+                MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
+                byte messageDigest[] = algorithm.digest(request.getParameter("Senha").getBytes("UTF-8"));
+                StringBuilder hexString = new StringBuilder();
+                for (byte b : messageDigest) {
+                    hexString.append(String.format("%02X", 0xFF & b));
+                }
+                String senha = hexString.toString();
+                funcionario.setSenha(senha);
+                if (funcionario.validaFuncionario(funcionario)) {
+                    funcionarioDAO.cadastrarFuncionario(funcionario);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
+                    rd.forward(request, response);
+                }
+            }
+            catch (Exception e) {
+                request.setAttribute("msg", "Valores inválidos!");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+                rd.forward(request, response);                
+            }
+            finally {
+                request.setAttribute("msg", "Valores inválidos!");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+                rd.forward(request, response);
+            }
         }
     }
 
@@ -92,6 +153,8 @@ public class CadastrarFuncionario extends HttpServlet {
             Logger.getLogger(CadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(CadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -111,6 +174,8 @@ public class CadastrarFuncionario extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(CadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(CadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

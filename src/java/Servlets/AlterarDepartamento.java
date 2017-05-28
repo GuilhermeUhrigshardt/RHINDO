@@ -58,9 +58,14 @@ public class AlterarDepartamento extends HttpServlet {
             departamento.setIdDepartamento(Integer.valueOf(request.getParameter("Id")));
             departamento.setNomeDepartamento(request.getParameter("Nome"));
             departamento.setLocalizacao(request.getParameter("Localizacao"));
-            departamentoDAO.atualizarDepartamento(departamento);
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_departamentos.jsp");
-            rd.forward(request, response);
+            if (departamento.validaDepartamento(departamento)) {
+                departamentoDAO.cadastrarDepartamento(departamento);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_departamentos.jsp");
+                rd.forward(request, response);
+            }
+            request.setAttribute("msg", "Valores inválidos!");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+            rd.forward(request, response); 
         }
     }
 

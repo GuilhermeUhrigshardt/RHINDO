@@ -18,6 +18,7 @@ public class Funcionario implements Serializable {
     private String cpf;
     private String rg;
     private String celular;
+    private String senha;
     private Endereco endereco;
     private Cargo cargo;
     private Departamento departamento;
@@ -74,6 +75,14 @@ public class Funcionario implements Serializable {
         this.celular = celular;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     public Endereco getEndereco() {
         return endereco;
     }
@@ -98,5 +107,15 @@ public class Funcionario implements Serializable {
         this.departamento = departamento;
     }
     
-    
+    public boolean validaFuncionario(Funcionario funcionario) {
+        if (funcionario.getCelular().length()!= 11)
+            return false;
+        if (funcionario.getCpf().length() != 11)
+            return false;
+        if (funcionario.getEndereco().getCep().length() != 8)
+            return false;
+        if (funcionario.getCargo() == null|| funcionario.getDepartamento() == null || funcionario.getEmail().equals("")|| funcionario.getEndereco() == null || funcionario.getNomeFuncionario().equals("") || funcionario.getSenha().equals(""))
+            return false;
+        return funcionario.getRg().length() == 9;
+    }
 }

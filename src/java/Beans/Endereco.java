@@ -13,6 +13,7 @@ import java.io.Serializable;
  */
 public class Endereco implements Serializable {
     private int idUf;
+    private int idEndereco;
     private String uf;
     private String rua;
     private int numero;
@@ -30,6 +31,14 @@ public class Endereco implements Serializable {
 
     public void setIdUf(int idUf) {
         this.idUf = idUf;
+    }
+
+    public int getIdEndereco() {
+        return idEndereco;
+    }
+
+    public void setIdEndereco(int idEndereco) {
+        this.idEndereco = idEndereco;
     }
 
     public String getUf() {
