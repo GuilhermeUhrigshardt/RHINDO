@@ -9,8 +9,11 @@ import Beans.Funcionario;
 import DAO.FuncionarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,7 +38,7 @@ public class BuscarFuncionario extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
         HttpSession session = request.getSession(false);
         if (session.getAttribute("funcionario") == null) {
             request.setAttribute("msg", "Acesso negado!");
@@ -43,12 +46,16 @@ public class BuscarFuncionario extends HttpServlet {
             rd.forward(request, response);
         }
         String nome = request.getParameter("buscaFuncionario");
+        Funcionario funcionario = new Funcionario();
         FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         List<Funcionario> lista = new ArrayList<>();
-        //if (nome.equals(""))
-        //    lista = funcionarioDAO.buscarTodos();
-        //else
-        //    lista = funcionarioDAO.buscarPorNome(nome);
+        if (nome.equals(""))
+            lista = funcionarioDAO.buscarTodos();
+        else
+            lista = funcionarioDAO.buscarPorNome(nome);
+        request.setAttribute("lista", lista);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/buscar_funcionarios.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,7 +70,13 @@ public class BuscarFuncionario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BuscarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -77,7 +90,13 @@ public class BuscarFuncionario extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BuscarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

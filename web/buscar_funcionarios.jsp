@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <c:if test="${sessionScope.funcionario.departamento.nomeDepartamento != 'Gerencia' || sessionScope.funcionario.cargo.nomeCargo != 'Presidente'}"> <!--Trcar para RH e Gerente-->
     <c:redirect url="/erro.jsp">
@@ -22,15 +23,83 @@
         <title>Buscar Funcionários</title>
     </head>
     <body>
-        <div style="text-align:left;">
-            Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"><a href="/RHINDO/ProcessaLogout">Logout</a></span>
-        </div>
         <center>
-            <h2>RH-INDO</h2>
-            <a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a> | <a href="/RHINDO/manter_departamentos.jsp">Departamentos</a> | <a href="/RHINDO/manter_cargos.jsp">Cargos</a> | <a href="/RHINDO/folhas.jsp">Folhas</a> | <a href="/RHINDO/relatorios.jsp">Relatórios</a>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a class="navbar-brand" href="#">RH-INDO</a>
+                  </div>
+                  <ul class="nav navbar-nav">
+                    <li><a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a></li>
+                    <li><a href="/RHINDO/manter_departamentos.jsp">Departamentos</a></li>
+                    <li><a href="/RHINDO/manter_cargos.jsp">Cargos</a></li>
+                    <li><a href="/RHINDO/manter_folhas.jsp">Folhas</a></li>
+                    <li><a href="/RHINDO/manter_relatorios.jsp">Relatórios</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/RHINDO/ProcessaLogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                  </ul>
+                </div>
+            </nav>
             <br/><br/><br/>
             <h3>Busca Funcionários</h3>
             <br/>
+            <c:choose>
+                <c:when test="${!empty lista}">
+                <div class="container">
+                    <table border="1" cellspacing="1" class="table">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>RG</th>
+                            <th>Email</th>
+                            <th>Celular</th>
+                            <th>Departamento</th>
+                            <th>Cargo</th>
+                            <th>Endereço</th>
+                            <th>Alterar</th>
+                            <th>Deletar</th>
+                        </tr>
+                        <c:forEach items="${lista}" var="item">
+                            <tr>
+                                <td>${item.idFuncionario}</td>
+                                <td>${item.nomeFuncionario}</td>
+                                <td id="cpf">${item.cpf}</td>
+                                <td id="rg">${item.rg}</td>
+                                <td>${item.email}</td>
+                                <td id="celular">${item.celular}</td>
+                                <td>${item.departamento.nomeDepartamento}</td>
+                                <td>${item.cargo.nomeCargo}</td>
+                                <td>${item.endereco.rua}, ${item.endereco.numero} - ${item.endereco.bairro}, ${item.endereco.cidade} - ${item.endereco.uf} ${item.endereco.cep}</td>
+                                <td><a href="AlterarFuncionario?car=<c:out value="${item.idFuncionario}"/>"><input type="button" name="Alterar" value="Alterar" /></a></td>
+                                <td><a href="RemoverFuncionario?car=<c:out value="${item.idFuncionario}"/>"><input type="button" name="Remover" value="Remover" /></a></td>                                
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+                </c:when>
+                <c:otherwise>
+                    <h4>Não foram encontrados funcionarios com este nome!</h4>
+                </c:otherwise>
+            </c:choose>
         </center>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                var tot = $("#valor").val();
+                var tot = 'R$' + parseFloat(tot).toFixed(2).replace(/(\d.)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                tot = tot.replace(/[,.]/g, function (m) {
+                    return m === ',' ? '.' : ',';
+                });
+                $("#valor").val(tot);
+            });
+            $(document).focusin(function(){
+                $("#valor").maskMoney({symbol:'R$', showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
+            });            
+            function handleChange(input) {
+                if (input.value < 0) input.value = 0;
+                if (input.value > 100) input.value = 100;
+            }
+        </script>
     </body>
 </html>

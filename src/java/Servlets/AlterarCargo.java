@@ -63,7 +63,7 @@ public class AlterarCargo extends HttpServlet {
                     salario = salario.replaceAll("[.]","");
                     salario = new StringBuilder(salario).insert(salario.length()-2, ".").toString();
                 }
-                cargo.setSalario(Float.valueOf(request.getParameter("Salario")));
+                cargo.setSalario(Float.valueOf(salario));
                 cargo.setRequisitos(request.getParameter("Requisitos"));
                 cargo.setCargaMinima(Integer.valueOf(request.getParameter("CargaMinima")));
                 cargo.setDescontoImpostos(Integer.valueOf(request.getParameter("DescontoImpostos")));
@@ -74,12 +74,12 @@ public class AlterarCargo extends HttpServlet {
                 }
             }
             catch (Exception e) {
-                request.setAttribute("msg", "Valores inválidos!");
+                request.setAttribute("msg", e);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
                 rd.forward(request, response);
             }
             finally {
-                request.setAttribute("msg", "Valores inválidos!");
+                request.setAttribute("msg", "Valores Invalidos!");
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
                 rd.forward(request, response);
             }
