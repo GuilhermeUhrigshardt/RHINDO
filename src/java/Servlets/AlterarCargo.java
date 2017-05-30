@@ -69,6 +69,7 @@ public class AlterarCargo extends HttpServlet {
                 cargo.setDescontoImpostos(Integer.valueOf(request.getParameter("DescontoImpostos")));
                 if (cargo.validaCargo(cargo)) {
                     cargoDAO.atualizarCargo(cargo);
+                    request.setAttribute("msg", "Cargo " + cargo.getNomeCargo() + " alterado com sucesso!");
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_cargos.jsp");
                     rd.forward(request, response);
                 }

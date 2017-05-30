@@ -45,6 +45,7 @@ public class RemoverCargo extends HttpServlet {
         CargoDAO cargoDAO = new CargoDAO();
         int id = Integer.valueOf(request.getParameter("car"));            
         cargoDAO.removerCargo(id);
+        request.setAttribute("msg", "Cargo removido com sucesso!");
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_cargos.jsp");
         rd.forward(request, response);
     }

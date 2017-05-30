@@ -109,6 +109,7 @@ public class AlterarFuncionario extends HttpServlet {
                 funcionario.setCargo(cargo);
                 if (funcionario.validaFuncionarioAlterar(funcionario)) {
                     funcionarioDAO.alterarFuncionario(funcionario);
+                    request.setAttribute("msg", "Funcionário " + funcionario.getNomeFuncionario() + " alterado com sucesso!");
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
                     rd.forward(request, response);
                 }

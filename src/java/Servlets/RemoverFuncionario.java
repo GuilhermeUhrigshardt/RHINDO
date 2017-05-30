@@ -45,6 +45,7 @@ public class RemoverFuncionario extends HttpServlet {
         FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         int id = Integer.valueOf(request.getParameter("fun"));            
         funcionarioDAO.removerFuncionario(id);
+        request.setAttribute("msg", "Funcionário removido com sucesso!");
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
         rd.forward(request, response);
     }

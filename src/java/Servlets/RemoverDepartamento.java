@@ -45,6 +45,7 @@ public class RemoverDepartamento extends HttpServlet {
         DepartamentoDAO departamentoDAO = new DepartamentoDAO();
         int id = Integer.valueOf(request.getParameter("dep"));            
         departamentoDAO.removerDepartamento(id);
+        request.setAttribute("msg", "Departamento removido com sucesso!");
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_departamentos.jsp");
         rd.forward(request, response);
     }

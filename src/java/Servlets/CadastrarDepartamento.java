@@ -49,6 +49,7 @@ public class CadastrarDepartamento extends HttpServlet {
         departamento.setLocalizacao(request.getParameter("Localizacao"));
         if (departamento.validaDepartamento(departamento)) {
             departamentoDAO.cadastrarDepartamento(departamento);
+            request.setAttribute("msg", "Departamento " + departamento.getNomeDepartamento() + " cadastrado com sucesso!");
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_departamentos.jsp");
             rd.forward(request, response);
         }

@@ -56,6 +56,7 @@ public class CadastrarCargo extends HttpServlet {
             cargo.setDescontoImpostos(Integer.valueOf(request.getParameter("DescontoImpostos")));
             if (cargo.validaCargo(cargo)) {
                 cargoDAO.cadastrarCargo(cargo);
+                request.setAttribute("msg", "Cargo " + cargo.getNomeCargo() + " cadastrado com sucesso!");
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_cargos.jsp");
                 rd.forward(request, response);
             }

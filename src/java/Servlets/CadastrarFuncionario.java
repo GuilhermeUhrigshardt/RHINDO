@@ -118,6 +118,7 @@ public class CadastrarFuncionario extends HttpServlet {
                 funcionario.setSenha(senha);
                 if (funcionario.validaFuncionario(funcionario)) {
                     funcionarioDAO.cadastrarFuncionario(funcionario);
+                    request.setAttribute("msg", "Funcionário " + funcionario.getNomeFuncionario() + " cadastrado com sucesso!");
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
                     rd.forward(request, response);
                 }
