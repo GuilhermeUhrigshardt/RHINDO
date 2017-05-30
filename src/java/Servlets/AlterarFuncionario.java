@@ -81,34 +81,46 @@ public class AlterarFuncionario extends HttpServlet {
             rd.forward(request, response);
         }
         else {
-            endereco.setRua(request.getParameter("Rua"));
-            endereco.setNumero(Integer.valueOf(request.getParameter("Numero")));
-            endereco.setBairro(request.getParameter("Bairro"));
-            String cep = request.getParameter("Cep").replaceAll("[^\\d.]+", "");
-            cep = cep.replaceAll("[.]","");
-            endereco.setCep(cep);
-            endereco.setCidade(request.getParameter("Cidade"));
-            endereco.setIdUf(Integer.valueOf(request.getParameter("Estado")));
-            departamento.setIdDepartamento(Integer.valueOf(request.getParameter("Departamento")));
-            cargo.setIdCargo(Integer.valueOf(request.getParameter("Cargo")));
-            funcionario.setIdFuncionario(Integer.valueOf(request.getParameter("Id")));
-            funcionario.setNomeFuncionario(request.getParameter("Nome"));
-            String cpf = request.getParameter("Cpf").replaceAll("[^\\d.]+", "");
-            cpf = cpf.replaceAll("[.]","");
-            funcionario.setCpf(cpf);
-            String rg = request.getParameter("Rg").replaceAll("[^\\d.]+", "");
-            rg = rg.replaceAll("[.]","");
-            funcionario.setRg(rg);
-            String celular = request.getParameter("Celular").replaceAll("[^\\d.]+", "");
-            celular = celular.replaceAll("[.]","");
-            funcionario.setCelular(celular);
-            funcionario.setEmail(request.getParameter("Email"));
-            funcionario.setEndereco(endereco);
-            funcionario.setDepartamento(departamento);
-            funcionario.setCargo(cargo);
-            if (funcionario.validaFuncionarioAlterar(funcionario)) {
-                funcionarioDAO.alterarFuncionario(funcionario);
-                RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
+            try{
+                endereco.setRua(request.getParameter("Rua"));
+                endereco.setNumero(Integer.valueOf(request.getParameter("Numero")));
+                endereco.setBairro(request.getParameter("Bairro"));
+                String cep = request.getParameter("Cep").replaceAll("[^\\d.]+", "");
+                cep = cep.replaceAll("[.]","");
+                endereco.setCep(cep);
+                endereco.setCidade(request.getParameter("Cidade"));
+                endereco.setIdUf(Integer.valueOf(request.getParameter("Estado")));
+                departamento.setIdDepartamento(Integer.valueOf(request.getParameter("Departamento")));
+                cargo.setIdCargo(Integer.valueOf(request.getParameter("Cargo")));
+                funcionario.setIdFuncionario(Integer.valueOf(request.getParameter("Id")));
+                funcionario.setNomeFuncionario(request.getParameter("Nome"));
+                String cpf = request.getParameter("Cpf").replaceAll("[^\\d.]+", "");
+                cpf = cpf.replaceAll("[.]","");
+                funcionario.setCpf(cpf);
+                String rg = request.getParameter("Rg").replaceAll("[^\\d.]+", "");
+                rg = rg.replaceAll("[.]","");
+                funcionario.setRg(rg);
+                String celular = request.getParameter("Celular").replaceAll("[^\\d.]+", "");
+                celular = celular.replaceAll("[.]","");
+                funcionario.setCelular(celular);
+                funcionario.setEmail(request.getParameter("Email"));
+                funcionario.setEndereco(endereco);
+                funcionario.setDepartamento(departamento);
+                funcionario.setCargo(cargo);
+                if (funcionario.validaFuncionarioAlterar(funcionario)) {
+                    funcionarioDAO.alterarFuncionario(funcionario);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
+                    rd.forward(request, response);
+                }
+            }
+            catch (Exception e) {
+                request.setAttribute("msg", e);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
+                rd.forward(request, response);
+            }
+            finally {
+                request.setAttribute("msg", "Valores Inválidos!");
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
                 rd.forward(request, response);
             }
         }
