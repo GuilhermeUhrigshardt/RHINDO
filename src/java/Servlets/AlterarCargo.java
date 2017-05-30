@@ -74,7 +74,7 @@ public class AlterarCargo extends HttpServlet {
                 }
             }
             catch (Exception e) {
-                request.setAttribute("msg", e);
+                request.setAttribute("msg", "Valores Invalidos!");
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
                 rd.forward(request, response);
             }
