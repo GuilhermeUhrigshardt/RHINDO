@@ -53,7 +53,7 @@
             <div class="container " style="width: 35%">
                 <div align="center" class="form-group jumbotron">
                     <form action="BuscarDepartamento" method="POST" style="display: flex">
-                            <input type="text" name="buscaDepartamento" class="form-control" placeholder="Buscar por nome">
+                            <input type="text" name="buscaDepartamento" class="form-control" placeholder="Buscar por nome" style="margin-right: 10px">
                             <input type="submit" class="btn btn-primary" value="Buscar">
                     </form>
                     <br/><br/>

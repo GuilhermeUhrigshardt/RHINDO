@@ -48,54 +48,64 @@
                 Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"></span>
             </div>
             <br/><br/><br/>
-            <h3>Alterar Funcionário</h3>
+            <h1>Alterar Funcionário</h1>
             <br/>
             <div class="container " style="width: 50%">
                 <form action="AlterarFuncionario" method="POST" class="form-group jumbotron" role="form" style="text-align: left"> 
-                <input type="hidden" name="Id" value="<c:out value="${funcionario.idFuncionario}"/>">
-                <label> Nome:</label> <input type="text" class="form-control inline" name="Nome" value="${funcionario.nomeFuncionario}">
-                <br/>
-                <label>CPF:</label> <input type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Cpf" id="cpf" value="${funcionario.cpfFormatado}">
-                <br/>
-                <label>RG:</label> <input type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Rg" id="rg" value="${funcionario.rgFormatado}">
-                <br/>
-                <label>Celular:</label> <input type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Celular" id="cel" value="${funcionario.celularFormatado}">
-                <br/>
-                <label>Email:</label> <input type="email" class="form-control" name="Email" value="${funcionario.email}">
-                <br/>
-                <label>Rua:</label> <input type="text" class="form-control" name="Rua" value="${funcionario.endereco.rua}">
-                <br/>
-                <label>Número:</label> <input type="text" class="form-control" name="Numero" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="${funcionario.endereco.numero}">
-                <br/>
-                <label>Bairro:</label> <input type="text" class="form-control" name="Bairro" value="${funcionario.endereco.bairro}">
-                <br/>
-                <label>CEP:</label> <input type="text" class="form-control" name="Cep" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="cep" value="${funcionario.endereco.cepFormatado}">
-                <br/>
-                <label>Cidade:</label> <input type="text" class="form-control" name="Cidade" value="${funcionario.endereco.cidade}">
-                <br/>
-                <label>Estado:</label> 
-                <select class="form-control" name="Estado">
-                    <c:forEach items="${listaEndereco}" var="uf">
-                        <option value="${uf.idUf}">${uf.uf}</option>
-                    </c:forEach>
-                </select>
-                <br/>
-                <label>Departamento:</label> 
-                <select class="form-control" name="Departamento">
-                    <c:forEach items="${listaDepartamento}" var="departamento">
-                        <option value="${departamento.idDepartamento}">${departamento.nomeDepartamento}</option>
-                    </c:forEach>
-                </select>
-                <br/>
-               <label> Cargo:</label> 
-                <select class="form-control" name="Cargo">
-                    <c:forEach items="${listaCargo}" var="cargo">
-                        <option value="${cargo.idCargo}">${cargo.nomeCargo}</option>
-                    </c:forEach>
-                </select>
-                <br/>
-                <input class="btn btn-primary" type="submit" value="Alterar">
-            </form>
+                    <input type="hidden" name="Id" value="<c:out value="${funcionario.idFuncionario}"/>">
+                    <label> Nome:</label> 
+                    <input type="text" class="form-control" name="Nome" value="${funcionario.nomeFuncionario}">
+                    <br/>
+                    <label>CPF:</label> 
+                    <input type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Cpf" id="cpf" value="${funcionario.cpfFormatado}">
+                    <br/>
+                    <label>RG:</label> 
+                    <input type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Rg" id="rg" value="${funcionario.rgFormatado}">
+                    <br/>
+                    <label>Celular:</label> 
+                    <input type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Celular" id="cel" value="${funcionario.celularFormatado}">
+                    <br/>
+                    <label>Email:</label> 
+                    <input type="email" class="form-control" name="Email" value="${funcionario.email}">
+                    <br/>
+                    <label>Rua:</label> 
+                    <input type="text" class="form-control" name="Rua" value="${funcionario.endereco.rua}">
+                    <br/>
+                    <label>Número:</label> 
+                    <input type="text" class="form-control" name="Numero" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="${funcionario.endereco.numero}">
+                    <br/>
+                    <label>Bairro:</label> 
+                    <input type="text" class="form-control" name="Bairro" value="${funcionario.endereco.bairro}">
+                    <br/>
+                    <label>CEP:</label> 
+                    <input type="text" class="form-control" name="Cep" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="cep" value="${funcionario.endereco.cepFormatado}">
+                    <br/>
+                    <label>Cidade:</label> 
+                    <input type="text" class="form-control" name="Cidade" value="${funcionario.endereco.cidade}">
+                    <br/>
+                    <label>Estado:</label> 
+                    <select class="form-control" name="Estado">
+                        <c:forEach items="${listaEndereco}" var="uf">
+                            <option value="${uf.idUf}">${uf.uf}</option>
+                        </c:forEach>
+                    </select>
+                    <br/>
+                    <label>Departamento:</label> 
+                    <select class="form-control" name="Departamento">
+                        <c:forEach items="${listaDepartamento}" var="departamento">
+                            <option value="${departamento.idDepartamento}">${departamento.nomeDepartamento}</option>
+                        </c:forEach>
+                    </select>
+                    <br/>
+                   <label> Cargo:</label> 
+                    <select class="form-control" name="Cargo">
+                        <c:forEach items="${listaCargo}" var="cargo">
+                            <option value="${cargo.idCargo}">${cargo.nomeCargo}</option>
+                        </c:forEach>
+                    </select>
+                    <br/>
+                    <input class="btn btn-primary" type="submit" value="Alterar">
+                </form>
             </div>
         </center>
         <script type="text/javascript">
