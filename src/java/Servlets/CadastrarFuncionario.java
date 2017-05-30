@@ -88,7 +88,7 @@ public class CadastrarFuncionario extends HttpServlet {
                 int idEndereco = enderecoDAO.buscarIdEndereco();
                 endereco.setIdEndereco(idEndereco);
                 departamento.setIdDepartamento(Integer.valueOf(request.getParameter("Departamento")));
-                cargo. setIdCargo(Integer.valueOf(request.getParameter("Cargo")));
+                cargo.setIdCargo(Integer.valueOf(request.getParameter("Cargo")));
                 funcionario.setNomeFuncionario(request.getParameter("Nome"));
                 String cpf = request.getParameter("Cpf").replaceAll("[^\\d.]+", "");
                 cpf = cpf.replaceAll("[.]","");

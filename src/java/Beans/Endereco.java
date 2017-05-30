@@ -6,6 +6,8 @@
 package Beans;
 
 import java.io.Serializable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -20,6 +22,7 @@ public class Endereco implements Serializable {
     private String bairro;
     private String cep;
     private String cidade;
+    private String cepFormatado;
     
     public Endereco() {
         
@@ -88,6 +91,15 @@ public class Endereco implements Serializable {
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
-    
-    
+
+    public String getCepFormatado() {
+        return cepFormatado;
+    }
+
+    public void setCepFormatado(String cepFormatado) {
+        Pattern pattern = Pattern.compile("(\\d{5})(\\d{3})");
+        Matcher matcher = pattern.matcher(cepFormatado);
+        if (matcher.matches()) 
+            this.cepFormatado = matcher.replaceAll("$1-$2");
+    }
 }

@@ -5,13 +5,10 @@
  */
 package Servlets;
 
-import Beans.Funcionario;
 import DAO.FuncionarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -26,8 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author guilh
  */
-@WebServlet(name = "BuscarFuncionario", urlPatterns = {"/BuscarFuncionario"})
-public class BuscarFuncionario extends HttpServlet {
+@WebServlet(name = "RemoverFuncionario", urlPatterns = {"/RemoverFuncionario"})
+public class RemoverFuncionario extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,22 +42,10 @@ public class BuscarFuncionario extends HttpServlet {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
             rd.forward(request, response);
         }
-        String nome = request.getParameter("buscaFuncionario");
-        Funcionario funcionario = new Funcionario();
         FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
-        List<Funcionario> lista = new ArrayList<>();
-        if (nome.equals(""))
-            lista = funcionarioDAO.buscarTodos();
-        else
-            lista = funcionarioDAO.buscarPorNome(nome);
-        for (Funcionario f : lista) {
-            f.setCpfFormatado(f.getCpf());
-            f.setRgFormatado(f.getRg());
-            f.setCelularFormatado(f.getCelular());
-            f.getEndereco().setCepFormatado(f.getEndereco().getCep());
-        }
-        request.setAttribute("lista", lista);
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/buscar_funcionarios.jsp");
+        int id = Integer.valueOf(request.getParameter("fun"));            
+        funcionarioDAO.removerFuncionario(id);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
         rd.forward(request, response);
     }
 
@@ -79,9 +64,9 @@ public class BuscarFuncionario extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RemoverFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BuscarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RemoverFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -99,9 +84,9 @@ public class BuscarFuncionario extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RemoverFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BuscarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RemoverFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

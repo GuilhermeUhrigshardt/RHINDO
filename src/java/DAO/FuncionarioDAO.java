@@ -24,11 +24,22 @@ import java.util.List;
 public class FuncionarioDAO {
     Connection con = null;
     PreparedStatement stmt = null;
+    PreparedStatement stmt2 = null;            
+    PreparedStatement stmt3 = null;
+    PreparedStatement stmt4 = null;
+    PreparedStatement stmt5 = null;
     ResultSet rs = null;
     private String cadastrarEndereco = "insert into Funcionario (idEndereco, idCargo, idDepartamento, nomeFuncionario, cpf, rg, celular, email, senha) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private String buscarTodos = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla, d.nomeDepartamento, c.nomeCargo from Funcionario f inner join Endereco e on f.idEndereco = e.idEndereco inner join UF u on e.idUF = u.idUF inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo order by f.idFuncionario";
     private String buscarPorNome = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla, d.nomeDepartamento, c.nomeCargo from Funcionario f inner join Endereco e on f.idEndereco = e.idEndereco inner join UF u on e.idUF = u.idUF inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo where f.nomeFuncionario like ? order by f.idFuncionario";
-
+    private String buscarPorId = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla, d.nomeDepartamento, c.nomeCargo from Funcionario f inner join Endereco e on f.idEndereco = e.idEndereco inner join UF u on e.idUF = u.idUF inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo where f.idFuncionario = ?";
+    private String removerFuncionario = "delete from Funcionario where idFuncionario = ?";
+    private String alterarFuncionario = "update Funcionario set idEndereco = ?, idCargo = ?, idDepartamento = ?, nomeFuncionario = ?, cpf = ?, rg = ?, celular = ?, email = ? where idFuncionario = ?";
+    private String alterarEndereco = "update Endereco set idUF = ?, rua = ?, numero = ?, bairro = ?, cep = ?, cidade = ? where idEndereco = ?";
+    private String getIdUF = "select idUF from UF where sigla = ?";
+    private String getIdCargo = "select idCargo from Cargo where nomeCargo = ?";
+    private String getIdDepartamento = "select idDepartamento from Departamento where nomeDepartamento = ?";
+    
     public void cadastrarFuncionario(Funcionario funcionario) throws SQLException, ClassNotFoundException {
         try {
             con = ConnectionFactory.getConnection();
@@ -130,5 +141,90 @@ public class FuncionarioDAO {
             con.close();
         }
         return lista;
+    }
+    
+    public void removerFuncionario(int id) throws SQLException, ClassNotFoundException {
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(removerFuncionario);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            out.println("Erro ao remover Funcionarios: " + ex.getMessage());
+        } finally {
+            stmt.close();
+            con.close();
+        }
+    }
+    
+    public Funcionario buscarPorId(int id) throws SQLException, ClassNotFoundException {
+        Funcionario f = new Funcionario();
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(buscarPorId);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                Endereco e = new Endereco();
+                Departamento d = new Departamento();
+                Cargo c = new Cargo();
+                f.setIdFuncionario(rs.getInt("f.idFuncionario"));
+                f.setNomeFuncionario(rs.getString("f.nomeFuncionario"));
+                f.setCpf(rs.getString("f.cpf"));
+                f.setRg(rs.getString("f.rg"));
+                f.setCelular(rs.getString("f.celular"));
+                f.setEmail(rs.getString("f.email"));
+                e.setRua(rs.getString("e.rua"));
+                e.setNumero(rs.getInt("e.numero"));
+                e.setBairro(rs.getString("e.bairro"));
+                e.setCep(rs.getString("e.cep"));
+                e.setCidade(rs.getString("e.cidade"));
+                e.setUf(rs.getString("u.sigla"));
+                d.setNomeDepartamento(rs.getString("d.nomeDepartamento"));
+                c.setNomeCargo(rs.getString("c.nomeCargo"));
+                f.setCargo(c);
+                f.setEndereco(e);
+                f.setDepartamento(d);
+            }
+            return f;
+        } catch (SQLException ex) {
+            out.println("Erro ao listar Cargos: " + ex.getMessage());
+        } finally {
+            stmt.close();
+            con.close();
+        }
+        return f;
+    }
+    
+    public void alterarFuncionario(Funcionario funcionario) throws SQLException, ClassNotFoundException {
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt2 = con.prepareStatement(alterarEndereco);
+            stmt5 = con.prepareStatement(alterarFuncionario);
+            stmt2.setInt(1, funcionario.getEndereco().getIdUf());
+            stmt2.setString(2, funcionario.getEndereco().getRua());
+            stmt2.setInt(3, funcionario.getEndereco().getNumero());
+            stmt2.setString(4, funcionario.getEndereco().getBairro());
+            stmt2.setString(5, funcionario.getEndereco().getCep());
+            stmt2.setString(6, funcionario.getEndereco().getCidade());
+            stmt2.setInt(7, funcionario.getIdFuncionario());
+            stmt2.executeUpdate();
+            stmt5.setInt(1, funcionario.getIdFuncionario());
+            stmt5.setInt(2, funcionario.getCargo().getIdCargo());
+            stmt5.setInt(3, funcionario.getDepartamento().getIdDepartamento());
+            stmt5.setString(4, funcionario.getNomeFuncionario());
+            stmt5.setString(5, funcionario.getCpf());
+            stmt5.setString(6, funcionario.getRg());
+            stmt5.setString(7, funcionario.getCelular());
+            stmt5.setString(8, funcionario.getEmail());
+            stmt5.setInt(9, funcionario.getIdFuncionario());
+            stmt5.executeUpdate();
+        } catch (SQLException ex) {
+            out.println("Erro ao alterar Funcionario: " + ex.getMessage());
+        } finally {
+            stmt2.close();
+            stmt5.close();
+            con.close();
+        }
     }
 }

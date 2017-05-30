@@ -6,6 +6,8 @@
 package Beans;
 
 import java.io.Serializable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -22,6 +24,9 @@ public class Funcionario implements Serializable {
     private Endereco endereco;
     private Cargo cargo;
     private Departamento departamento;
+    private String cpfFormatado;
+    private String rgFormatado;
+    private String celularFormatado;
     
     public Funcionario() {
         
@@ -106,6 +111,39 @@ public class Funcionario implements Serializable {
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
     }
+
+    public String getCpfFormatado() {
+        return cpfFormatado;
+    }
+
+    public void setCpfFormatado(String cpfFormatado) {
+        Pattern pattern = Pattern.compile("(\\d{3})(\\d{3})(\\d{3})(\\d{2})");
+        Matcher matcher = pattern.matcher(cpfFormatado);
+        if (matcher.matches()) 
+            this.cpfFormatado = matcher.replaceAll("$1.$2.$3-$4");
+    }
+
+    public String getRgFormatado() {
+        return rgFormatado;
+    }
+
+    public void setRgFormatado(String rgFormatado) {
+        Pattern pattern = Pattern.compile("(\\d{2})(\\d{3})(\\d{3})(\\d{1})");
+        Matcher matcher = pattern.matcher(rgFormatado);
+        if (matcher.matches()) 
+            this.rgFormatado = matcher.replaceAll("$1.$2.$3-$4");
+    }
+
+    public String getCelularFormatado() {
+        return celularFormatado;
+    }
+
+    public void setCelularFormatado(String celularFormatado) {
+        Pattern pattern = Pattern.compile("(\\d{2})(\\d{5})(\\d{4})");
+        Matcher matcher = pattern.matcher(celularFormatado);
+        if (matcher.matches()) 
+            this.celularFormatado = matcher.replaceAll("($1)$2-$3");
+    }
     
     public boolean validaFuncionario(Funcionario funcionario) {
         if (funcionario.getCelular().length()!= 11)
@@ -115,6 +153,18 @@ public class Funcionario implements Serializable {
         if (funcionario.getEndereco().getCep().length() != 8)
             return false;
         if (funcionario.getCargo() == null|| funcionario.getDepartamento() == null || funcionario.getEmail().equals("")|| funcionario.getEndereco() == null || funcionario.getNomeFuncionario().equals("") || funcionario.getSenha().equals(""))
+            return false;
+        return funcionario.getRg().length() == 9;
+    }
+    
+    public boolean validaFuncionarioAlterar(Funcionario funcionario) {
+        if (funcionario.getCelular().length()!= 11)
+            return false;
+        if (funcionario.getCpf().length() != 11)
+            return false;
+        if (funcionario.getEndereco().getCep().length() != 8)
+            return false;
+        if (funcionario.getCargo() == null|| funcionario.getDepartamento() == null || funcionario.getEmail().equals("")|| funcionario.getEndereco() == null || funcionario.getNomeFuncionario().equals(""))
             return false;
         return funcionario.getRg().length() == 9;
     }

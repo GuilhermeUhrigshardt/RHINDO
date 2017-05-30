@@ -65,15 +65,15 @@
                             <tr>
                                 <td>${item.idFuncionario}</td>
                                 <td>${item.nomeFuncionario}</td>
-                                <td id="cpf">${item.cpf}</td>
-                                <td id="rg">${item.rg}</td>
+                                <td id="cpf">${item.cpfFormatado}</td>
+                                <td id="rg">${item.rgFormatado}</td>
                                 <td>${item.email}</td>
-                                <td id="celular">${item.celular}</td>
+                                <td id="celular">${item.celularFormatado}</td>
                                 <td>${item.departamento.nomeDepartamento}</td>
                                 <td>${item.cargo.nomeCargo}</td>
-                                <td>${item.endereco.rua}, ${item.endereco.numero} - ${item.endereco.bairro}, ${item.endereco.cidade} - ${item.endereco.uf} ${item.endereco.cep}</td>
-                                <td><a href="AlterarFuncionario?car=<c:out value="${item.idFuncionario}"/>"><input type="button" name="Alterar" value="Alterar" /></a></td>
-                                <td><a href="RemoverFuncionario?car=<c:out value="${item.idFuncionario}"/>"><input type="button" name="Remover" value="Remover" /></a></td>                                
+                                <td>${item.endereco.rua}, ${item.endereco.numero} - ${item.endereco.bairro}, ${item.endereco.cidade} - ${item.endereco.uf} ${item.endereco.cepFormatado}</td>
+                                <td><a href="AlterarFuncionario?fun=<c:out value="${item.idFuncionario}"/>"><input type="button" name="Alterar" value="Alterar" /></a></td>
+                                <td><a href="RemoverFuncionario?fun=<c:out value="${item.idFuncionario}"/>"><input type="button" name="Remover" value="Remover" /></a></td>                                
                             </tr>
                         </c:forEach>
                     </table>
@@ -84,22 +84,5 @@
                 </c:otherwise>
             </c:choose>
         </center>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                var tot = $("#valor").val();
-                var tot = 'R$' + parseFloat(tot).toFixed(2).replace(/(\d.)(?=(\d\d\d)+(?!\d))/g, "$1,");
-                tot = tot.replace(/[,.]/g, function (m) {
-                    return m === ',' ? '.' : ',';
-                });
-                $("#valor").val(tot);
-            });
-            $(document).focusin(function(){
-                $("#valor").maskMoney({symbol:'R$', showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
-            });            
-            function handleChange(input) {
-                if (input.value < 0) input.value = 0;
-                if (input.value > 100) input.value = 100;
-            }
-        </script>
     </body>
 </html>
