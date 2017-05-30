@@ -19,63 +19,84 @@
         <script src="js/jquery.mask.js" type="text/javascript"></script>
         <script src="js/jquery.maskMoney.js" type="text/javascript"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <title>Alterar Funcionário</title>
     </head>
     <body>
-        <div style="text-align:left;">
-            Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"><a href="/RHINDO/ProcessaLogout">Logout</a></span>
-        </div>
         <center>
-            <h2>RH-INDO</h2>
-            <a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a> | <a href="/RHINDO/manter_departamentos.jsp">Departamentos</a> | <a href="/RHINDO/manter_cargos.jsp">Cargos</a> | <a href="/RHINDO/folhas.jsp">Folhas</a> | <a href="/RHINDO/relatorios.jsp">Relatórios</a>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a class="navbar-brand" href="#">RH-INDO</a>
+                  </div>
+                  <ul class="nav navbar-nav">
+                    <li><a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a></li>
+                    <li><a href="/RHINDO/manter_departamentos.jsp">Departamentos</a></li>
+                    <li><a href="/RHINDO/manter_cargos.jsp">Cargos</a></li>
+                    <li><a href="/RHINDO/Folhas.jsp">Folhas</a></li>
+                    <li><a href="/RHINDO/manter_relatorios.jsp">Relatórios</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/RHINDO/ProcessaLogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                  </ul>
+                </div>
+            </nav>
+            <div style="text-align:left;">
+                Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"></span>
+            </div>
             <br/><br/><br/>
             <h3>Alterar Funcionário</h3>
             <br/>
-            <form action="AlterarFuncionario" method="POST">
+            <div class="container " style="width: 50%">
+                <form action="AlterarFuncionario" method="POST" class="form-group jumbotron" role="form" style="text-align: left"> 
                 <input type="hidden" name="Id" value="<c:out value="${funcionario.idFuncionario}"/>">
-                Nome: <input type="text" name="Nome" value="${funcionario.nomeFuncionario}">
+                <label> Nome:</label> <input type="text" class="form-control inline" name="Nome" value="${funcionario.nomeFuncionario}">
                 <br/>
-                CPF: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Cpf" id="cpf" value="${funcionario.cpfFormatado}">
+                <label>CPF:</label> <input type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Cpf" id="cpf" value="${funcionario.cpfFormatado}">
                 <br/>
-                RG: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Rg" id="rg" value="${funcionario.rgFormatado}">
+                <label>RG:</label> <input type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Rg" id="rg" value="${funcionario.rgFormatado}">
                 <br/>
-                Celular: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Celular" id="cel" value="${funcionario.celularFormatado}">
+                <label>Celular:</label> <input type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Celular" id="cel" value="${funcionario.celularFormatado}">
                 <br/>
-                Email: <input type="email" name="Email" value="${funcionario.email}">
+                <label>Email:</label> <input type="email" class="form-control" name="Email" value="${funcionario.email}">
                 <br/>
-                Rua: <input type="text" name="Rua" value="${funcionario.endereco.rua}">
+                <label>Rua:</label> <input type="text" class="form-control" name="Rua" value="${funcionario.endereco.rua}">
                 <br/>
-                Número: <input type="text" name="Numero" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="${funcionario.endereco.numero}">
+                <label>Número:</label> <input type="text" class="form-control" name="Numero" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="${funcionario.endereco.numero}">
                 <br/>
-                Bairro: <input type="text" name="Bairro" value="${funcionario.endereco.bairro}">
+                <label>Bairro:</label> <input type="text" class="form-control" name="Bairro" value="${funcionario.endereco.bairro}">
                 <br/>
-                CEP: <input type="text" name="Cep" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="cep" value="${funcionario.endereco.cepFormatado}">
+                <label>CEP:</label> <input type="text" class="form-control" name="Cep" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="cep" value="${funcionario.endereco.cepFormatado}">
                 <br/>
-                Cidade: <input type="text" name="Cidade" value="${funcionario.endereco.cidade}">
+                <label>Cidade:</label> <input type="text" class="form-control" name="Cidade" value="${funcionario.endereco.cidade}">
                 <br/>
-                Estado: 
-                <select name="Estado">
+                <label>Estado:</label> 
+                <select class="form-control" name="Estado">
                     <c:forEach items="${listaEndereco}" var="uf">
                         <option value="${uf.idUf}">${uf.uf}</option>
                     </c:forEach>
                 </select>
                 <br/>
-                Departamento: 
-                <select name="Departamento">
+                <label>Departamento:</label> 
+                <select class="form-control" name="Departamento">
                     <c:forEach items="${listaDepartamento}" var="departamento">
                         <option value="${departamento.idDepartamento}">${departamento.nomeDepartamento}</option>
                     </c:forEach>
                 </select>
                 <br/>
-                Cargo: 
-                <select name="Cargo">
+               <label> Cargo:</label> 
+                <select class="form-control" name="Cargo">
                     <c:forEach items="${listaCargo}" var="cargo">
                         <option value="${cargo.idCargo}">${cargo.nomeCargo}</option>
                     </c:forEach>
                 </select>
                 <br/>
-                <input type="submit" value="Alterar">
+                <input class="btn btn-primary" type="submit" value="Alterar">
             </form>
+            </div>
         </center>
         <script type="text/javascript">
             $(document).ready(function(){

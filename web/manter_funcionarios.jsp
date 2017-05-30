@@ -36,7 +36,7 @@
                         <li><a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a></li>
                         <li><a href="/RHINDO/manter_departamentos.jsp">Departamentos</a></li>
                         <li><a href="/RHINDO/manter_cargos.jsp">Cargos</a></li>
-                        <li><a href="/RHINDO/manter_folhas.jsp">Folhas</a></li>
+                        <li><a href="/RHINDO/Folhas.jsp">Folhas</a></li>
                         <li><a href="/RHINDO/manter_relatorios.jsp">Relatórios</a></li>
                       </ul>
                       <ul class="nav navbar-nav navbar-right">
@@ -53,7 +53,7 @@
             <div class="container " style="width: 35%">
                 <div align="center" class="form-group jumbotron">
                     <form action="BuscarFuncionario" method="POST" style="display: flex">
-                            <input type="text" name="buscaFuncionario" class="form-control" placeholder="Buscar por nome">
+                            <input type="text" name="buscaFuncionario" class="form-control" placeholder="Buscar por nome" style="margin-right: 10px">
                             <input type="submit" class="btn btn-primary" value="Buscar">
                     </form>
                     <br/><br/>
