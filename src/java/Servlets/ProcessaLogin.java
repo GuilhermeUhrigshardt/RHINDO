@@ -9,6 +9,10 @@ import Beans.Funcionario;
 import DAO.LoginDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,14 +37,21 @@ public class ProcessaLogin extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, NoSuchAlgorithmException {
         response.setContentType("text/html;charset=UTF-8");
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
         PrintWriter out = response.getWriter();
         LoginDAO loginDAO = new LoginDAO();
         Funcionario funcionario = new Funcionario();
-        funcionario = loginDAO.lerFuncionario(email, senha);
+        MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
+        byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : messageDigest) {
+            hexString.append(String.format("%02X", 0xFF & b));
+        }
+        String senhac = hexString.toString();
+        funcionario = loginDAO.lerFuncionario(email, senhac);
         if (funcionario != null) {            
             HttpSession session = request.getSession();
             session.setAttribute("funcionario", funcionario);
@@ -71,7 +82,11 @@ public class ProcessaLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(ProcessaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -85,7 +100,11 @@ public class ProcessaLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(ProcessaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
