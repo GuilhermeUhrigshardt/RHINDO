@@ -57,7 +57,7 @@ public class ProcessaLogin extends HttpServlet {
             session.setAttribute("funcionario", funcionario);
             session.setMaxInactiveInterval(20*60);
             RequestDispatcher rd = null;
-            if (funcionario.getCargo().getNomeCargo().equals("Presidente") && funcionario.getDepartamento().getNomeDepartamento().equals("Gerencia"))
+            if (funcionario.getCargo().getNomeCargo().equals("Gerente") && funcionario.getDepartamento().getNomeDepartamento().equals("RH"))
                 rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
             else
                 rd = getServletContext().getRequestDispatcher("/relatorios_funcionario.jsp");
