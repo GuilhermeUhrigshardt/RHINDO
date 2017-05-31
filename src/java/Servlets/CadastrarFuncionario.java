@@ -116,7 +116,7 @@ public class CadastrarFuncionario extends HttpServlet {
                 }
                 String senha = hexString.toString();
                 funcionario.setSenha(senha);
-                if (funcionario.validaFuncionario(funcionario)) {
+                if (funcionario.validaFuncionario(funcionario) && endereco.validaEndereco(endereco)) {
                     funcionarioDAO.cadastrarFuncionario(funcionario);
                     request.setAttribute("msg", "Funcionário " + funcionario.getNomeFuncionario() + " cadastrado com sucesso!");
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");

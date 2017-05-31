@@ -107,7 +107,7 @@ public class AlterarFuncionario extends HttpServlet {
                 funcionario.setEndereco(endereco);
                 funcionario.setDepartamento(departamento);
                 funcionario.setCargo(cargo);
-                if (funcionario.validaFuncionarioAlterar(funcionario)) {
+                if (funcionario.validaFuncionarioAlterar(funcionario) && endereco.validaEndereco(endereco)) {
                     funcionarioDAO.alterarFuncionario(funcionario);
                     request.setAttribute("msg", "Funcionário " + funcionario.getNomeFuncionario() + " alterado com sucesso!");
                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");

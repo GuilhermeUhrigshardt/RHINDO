@@ -102,4 +102,12 @@ public class Endereco implements Serializable {
         if (matcher.matches()) 
             this.cepFormatado = matcher.replaceAll("$1-$2");
     }
+    
+    public boolean validaEndereco (Endereco endereco) {
+        if (endereco.getCidade().equals("") || endereco.getCidade() == null)
+            return false;
+        if (endereco.getBairro().equals("") || endereco.getBairro() == null)
+            return false;
+        return true;
+    }
 }
