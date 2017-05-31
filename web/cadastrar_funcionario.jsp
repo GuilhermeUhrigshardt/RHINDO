@@ -19,68 +19,88 @@
         <script src="js/jquery.mask.js" type="text/javascript"></script>
         <script src="js/jquery.maskMoney.js" type="text/javascript"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <title>Cadastrar Funcionário</title>
     </head>
     <body>
-        <div style="text-align:left;">
-            Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"><a href="/RHINDO/ProcessaLogout">Logout</a></span>
-        </div>
         <center>
-            <h2>RH-INDO</h2>
-            <a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a> | <a href="/RHINDO/manter_departamentos.jsp">Departamentos</a> | <a href="/RHINDO/manter_cargos.jsp">Cargos</a> | <a href="/RHINDO/folhas.jsp">Folhas</a> | <a href="/RHINDO/relatorios.jsp">Relatórios</a>
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                      <div class="navbar-header">
+                        <a class="navbar-brand" href="#">RH-INDO</a>
+                      </div>
+                      <ul class="nav navbar-nav">
+                        <li><a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a></li>
+                        <li><a href="/RHINDO/manter_departamentos.jsp">Departamentos</a></li>
+                        <li><a href="/RHINDO/manter_cargos.jsp">Cargos</a></li>
+                        <li><a href="/RHINDO/Folhas.jsp">Folhas</a></li>
+                        <li><a href="/RHINDO/manter_relatorios.jsp">Relatórios</a></li>
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/RHINDO/ProcessaLogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                      </ul>
+                    </div>
+                </nav>
+                <div style="text-align:left;">
+                    Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"></span>
+                </div>
             <br/><br/><br/>
-            <h3>Cadastrar Funcionário</h3>
+            <h1>Cadastrar Funcionário</h1>
             <br/>
-            <form action="CadastrarFuncionario" onsubmit="return checarSenha()" method="POST">
-                <input type="hidden" name="ver" value="1">
-                Nome: <input type="text" name="Nome" placeholder="Nome">
-                <br/>
-                CPF: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Cpf" id="cpf" placeholder="999.999.999-99">
-                <br/>
-                RG: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Rg" id="rg" placeholder="99.999.999-9">
-                <br/>
-                Celular: <input type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Celular" id="cel" placeholder="(99)99999-9999">
-                <br/>
-                Email: <input type="email" name="Email" placeholder="email@example.com">
-                <br/>
-                Rua: <input type="text" name="Rua" placeholder="Av. das Torres">
-                <br/>
-                Número: <input type="text" name="Numero" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="999">
-                <br/>
-                Bairro: <input type="text" name="Bairro" placeholder="Jardim das Americas">
-                <br/>
-                CEP: <input type="text" name="Cep" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="cep" placeholder="99999-999">
-                <br/>
-                Cidade: <input type="text" name="Cidade" placeholder="Curitiba">
-                <br/>
-                Estado: 
-                <select name="Estado">
-                    <c:forEach items="${listaEndereco}" var="uf">
-                        <option value="${uf.idUf}">${uf.uf}</option>
-                    </c:forEach>
-                </select>
-                <br/>
-                Departamento: 
-                <select name="Departamento">
-                    <c:forEach items="${listaDepartamento}" var="departamento">
-                        <option value="${departamento.idDepartamento}">${departamento.nomeDepartamento}</option>
-                    </c:forEach>
-                </select>
-                <br/>
-                Cargo: 
-                <select name="Cargo">
-                    <c:forEach items="${listaCargo}" var="cargo">
-                        <option value="${cargo.idCargo}">${cargo.nomeCargo}</option>
-                    </c:forEach>
-                </select>
-                <br/>
-                Senha: <input type="password" name="Senha" id="senha" placeholder="*********">
-                <br/>
-                Confirmar Senha: <input type="password" name="Confsenha" id="senhaconf" placeholder="*********">
-                <br/>
-                <input type="reset" value="Limpar">
-                <input type="submit" value="Cadastrar">
-            </form>
+            <div class="container " style="width: 50%">
+                <form action="CadastrarFuncionario" class="form-group jumbotron" onsubmit="return checarSenha()" method="POST" role="form" style="text-align: left">
+                    <input type="hidden" name="ver" value="1">
+                    <label>Nome:</label> <input type="text" class="form-control" name="Nome" placeholder="Nome">
+                    <br/>
+                    <label>CPF:</label> <input type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Cpf" id="cpf" placeholder="999.999.999-99">
+                    <br/>
+                    <label>RG:</label> <input type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Rg" id="rg" placeholder="99.999.999-9">
+                    <br/>
+                    <label>Celular:</label> <input type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="Celular" id="cel" placeholder="(99)99999-9999">
+                    <br/>
+                    <label>Email:</label> <input type="email" class="form-control" name="Email" placeholder="email@example.com">
+                    <br/>
+                    <label>Rua:</label> <input type="text" class="form-control" name="Rua" placeholder="Av. das Torres">
+                    <br/>
+                    <label>Número:</label> <input type="text" class="form-control" name="Numero" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="999">
+                    <br/>
+                    <label>Bairro:</label> <input type="text" class="form-control" name="Bairro" placeholder="Jardim das Americas">
+                    <br/>
+                    <label>CEP:</label> <input type="text" class="form-control" name="Cep" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="cep" placeholder="99999-999">
+                    <br/>
+                    <label>Cidade:</label> <input type="text" class="form-control" name="Cidade" placeholder="Curitiba">
+                    <br/>
+                    <label>Estado:</label> 
+                    <select class="form-control" name="Estado">
+                        <c:forEach items="${listaEndereco}" var="uf">
+                            <option value="${uf.idUf}">${uf.uf}</option>
+                        </c:forEach>
+                    </select>
+                    <br/>
+                    <label>Departamento:</label> 
+                    <select class="form-control" name="Departamento">
+                        <c:forEach items="${listaDepartamento}" var="departamento">
+                            <option value="${departamento.idDepartamento}">${departamento.nomeDepartamento}</option>
+                        </c:forEach>
+                    </select>
+                    <br/>
+                    <label>Cargo:</label> 
+                    <select class="form-control" name="Cargo">
+                        <c:forEach items="${listaCargo}" var="cargo">
+                            <option value="${cargo.idCargo}">${cargo.nomeCargo}</option>
+                        </c:forEach>
+                    </select>
+                    <br/>
+                    <label>Senha:</label> <input type="password" class="form-control" name="Senha" id="senha" placeholder="*********">
+                    <br/>
+                    <label>Confirmar Senha:</label> <input type="password" class="form-control" name="Confsenha" id="senhaconf" placeholder="*********">
+                    <br/>
+                    <input type="reset" class="btn btn-primary" value="Limpar">
+                    <input type="submit" class="btn btn-primary" value="Cadastrar">
+                </form>
+            </div>
         </center>
         <script type="text/javascript">
             $(document).ready(function(){
