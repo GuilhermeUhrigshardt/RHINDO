@@ -40,14 +40,16 @@
                         <li><a href="/RHINDO/manter_relatorios.jsp">Relatórios</a></li>
                       </ul>
                       <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <div style="margin-top: 2vh; color: #ccc; ">
+                                Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"></span>
+                            </div>
+                        </li>
                         <li><a href="/RHINDO/ProcessaLogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
                       </ul>
                     </div>
                   </nav>
-                  <div style="text-align:right;">
-                    Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"></span>
-                  </div>
-            <br/><br/><br/>
+                  <br/><br/><br/>
             <h1>Manter Cargos</h1>
             <br/>
             <div class="container " style="width: 35%;">

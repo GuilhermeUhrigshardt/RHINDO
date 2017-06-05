@@ -17,7 +17,7 @@
         <center>
             <h4>${msg}</h4>
             <div class="container " style="width: 35%">
-                <h2>RH-INDO</h2>
+                <h1>RH-INDO</h1>
                 <form action="http://localhost:8080/RHINDO/ProcessaLogin" method="post">
                     <div align="center" class="form-group jumbotron">
                         Email:<input class="form-control" type="text" name="email" id="email"><br/>
