@@ -30,7 +30,7 @@
                 <nav class="navbar navbar-inverse">
                     <div class="container-fluid">
                       <div class="navbar-header">
-                        <a class="navbar-brand" href="#">RH-INDO</a>
+                        <a class="navbar-brand" href="/RHINDO/manter_funcionarios.jsp">RH-INDO</a>
                       </div>
                       <ul class="nav navbar-nav">
                         <li><a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a></li>
