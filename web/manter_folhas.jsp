@@ -19,13 +19,13 @@
         <title>Folhas</title>
     </head>
     <body>
-        <div style="text-align:left;">
+        <div style="text-align:right;">
             Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"><a href="/RHINDO/ProcessaLogout">Logout</a></span>
         </div>
     <center>
         <h2>RH-INDO</h2>
         <a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a> | <a href="/RHINDO/manter_departamentos.jsp">Departamentos</a> | <a href="/RHINDO/manter_cargos.jsp">Cargos</a> | <a href="/RHINDO/Folha">Folhas</a> | <a href="/RHINDO/relatorios.jsp">Relatórios</a>
-        <h2>Fechamento de Folha</h2>
+        <h1>Fechamento de Folha</h1>
         <form action="Folha" method="POST">
             Departamentos:              
                 <select name="listaDepartamentos">

@@ -26,26 +26,26 @@
     </head>
     <body>
         <center>
-                <nav class="navbar navbar-inverse">
-                    <div class="container-fluid">
-                      <div class="navbar-header">
-                        <a class="navbar-brand" href="#">RH-INDO</a>
-                      </div>
-                      <ul class="nav navbar-nav">
-                        <li><a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a></li>
-                        <li><a href="/RHINDO/manter_departamentos.jsp">Departamentos</a></li>
-                        <li><a href="/RHINDO/manter_cargos.jsp">Cargos</a></li>
-                        <li><a href="/RHINDO/Folhas.jsp">Folhas</a></li>
-                        <li><a href="/RHINDO/manter_relatorios.jsp">Relatórios</a></li>
-                      </ul>
-                      <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/RHINDO/ProcessaLogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-                      </ul>
-                    </div>
-                </nav>
-                <div style="text-align:left;">
-                    Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"></span>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a class="navbar-brand" href="#">RH-INDO</a>
+                  </div>
+                  <ul class="nav navbar-nav">
+                    <li><a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a></li>
+                    <li><a href="/RHINDO/manter_departamentos.jsp">Departamentos</a></li>
+                    <li><a href="/RHINDO/manter_cargos.jsp">Cargos</a></li>
+                    <li><a href="/RHINDO/Folhas.jsp">Folhas</a></li>
+                    <li><a href="/RHINDO/manter_relatorios.jsp">Relatórios</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/RHINDO/ProcessaLogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                  </ul>
                 </div>
+            </nav>
+            <div style="text-align:right;">
+                Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"></span>
+            </div>
             <br/><br/><br/>
             <h1>Cadastrar Funcionário</h1>
             <br/>

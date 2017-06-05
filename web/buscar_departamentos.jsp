@@ -40,10 +40,10 @@
                   </ul>
                 </div>
             </nav>
-                  <div style="text-align:left;">
+                  <div style="text-align:right;">
                     Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"></span>
                   </div>
-            <h3>Busca Departamentos</h3>
+            <h1>Busca Departamentos</h1>
             <br/>
             <c:choose>
                 <c:when test="${!empty lista}">

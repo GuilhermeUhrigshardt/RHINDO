@@ -44,17 +44,18 @@
                       </ul>
                     </div>
                   </nav>
-                  <div style="text-align:left;">
+                  <div style="text-align:right;">
                     Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"></span>
                   </div>
             <br/><br/><br/>
-            <h3>Manter Cargos</h3>
+            <h1>Manter Cargos</h1>
             <br/>
-            <div class="container " style="width: 35%">
+            <div class="container " style="width: 35%;">
                 <div align="center" class="form-group jumbotron">
-                    <form action="BuscarCargo" method="POST" style="display: flex">
-                            <input type="text" name="buscaCargo" class="form-control" placeholder="Buscar por nome" style="margin-right: 10px">
-                            <input type="submit" class="btn btn-primary" value="Buscar">
+                    <div align="left"><label>Buscar:</label></div>
+                    <form action="BuscarCargo" method="POST" style="display: flex;" role="form" style="text-align: left">
+                        <input type="text" name="buscaCargo" class="form-control" placeholder="Buscar por nome" style="margin-right: 10px">
+                        <input type="submit" class="btn btn-primary" value="Buscar">
                     </form>
                     <br/><br/>
                     <a href="cadastrar_cargo.jsp"><input class="btn btn-primary" type="submit" value="Cadastrar"></a>

@@ -42,7 +42,7 @@
                 </div>
             </nav>
             <br/><br/><br/>
-            <h3>Busca Cargos</h3>
+            <h1>Busca Cargos</h1>
             <br/>
             <c:choose>
                 <c:when test="${!empty lista}">

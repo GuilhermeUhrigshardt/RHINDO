@@ -41,7 +41,7 @@
                   </ul>
                 </div>
             </nav>
-            <div style="text-align:left;">
+            <div style="text-align:right;">
                 Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"></span>
             </div>
             <br/><br/><br/>

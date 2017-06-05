@@ -44,14 +44,15 @@
                       </ul>
                     </div>
                   </nav>
-                  <div style="text-align:left;">
+                  <div style="text-align:right;">
                     Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"></span>
                   </div>
             <br/><br/><br/>
-            <h3>Manter Departamento</h3>
+            <h1>Manter Departamento</h1>
             <br/>
             <div class="container " style="width: 35%">
                 <div align="center" class="form-group jumbotron">
+                    <div align="left"><label>Buscar:</label></div>
                     <form action="BuscarDepartamento" method="POST" style="display: flex">
                             <input type="text" name="buscaDepartamento" class="form-control" placeholder="Buscar por nome" style="margin-right: 10px">
                             <input type="submit" class="btn btn-primary" value="Buscar">
