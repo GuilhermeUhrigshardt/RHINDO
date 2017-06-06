@@ -7,17 +7,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html style="height: 100%;">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/bootstrap.css" type="text/css" rel="stylesheet">
         <title>RH-INDO</title>
     </head>
-    <body>
-        <center>
+    <body style="height: 100%;">
+        <center style="background-image: url(css/office1.jpg); background-size: 100%; background-position: center; height: 100%;">
             <h4>${msg}</h4>
             <div class="container " style="width: 35%">
-                <h1>RH-INDO</h1>
+                <img src="css/logo.png">
                 <form action="http://localhost:8080/RHINDO/ProcessaLogin" method="post">
                     <div align="center" class="form-group jumbotron">
                         Email:<input class="form-control" type="text" name="email" id="email"><br/>
