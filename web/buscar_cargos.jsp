@@ -71,8 +71,8 @@
                                 <td>${item.requisitos}</td>
                                 <td>${item.cargaMinima}h</td>
                                 <td>${item.descontoImpostos}%</td>
-                                <td><a href="AlterarCargo?car=<c:out value="${item.idCargo}"/>"><input type="button" name="Alterar" value="Alterar" /></a></td>
-                                <td><a href="RemoverCargo?car=<c:out value="${item.idCargo}"/>"><input type="button" name="Remover" value="Remover" /></a></td>                                
+                                <td><a href="AlterarCargo?car=<c:out value="${item.idCargo}"/>"><span class="glyphicon glyphicon-pencil" name="Alterar" value="Alterar" style="font-size: 1.5vw;"></span></a></td>
+                                <td><a href="RemoverCargo?car=<c:out value="${item.idCargo}"/>"><span class="glyphicon glyphicon-remove" name="Remover" value="Remover" onmouseover="this.style.color='#ca0202'" onmouseout="this.style.color='red'" style="color: red; font-size: 1.5vw;"></span></a></td>                                
                             </tr>
                         </c:forEach>
                     </table>

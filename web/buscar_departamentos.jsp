@@ -64,8 +64,8 @@
                                 <td>${item.idDepartamento}</td>
                                 <td>${item.nomeDepartamento}</td>
                                 <td>${item.localizacao}</td>
-                                <td><a href="AlterarDepartamento?dep=<c:out value="${item.idDepartamento}"/>"><input type="button" name="Alterar" value="Alterar" /></a></td>
-                                <td><a href="RemoverDepartamento?dep=<c:out value="${item.idDepartamento}"/>"><input type="button" name="Remover" value="Remover" /></a></td>                                
+                                <td><a href="AlterarDepartamento?dep=<c:out value="${item.idDepartamento}"/>"><span class="glyphicon glyphicon-pencil" name="Alterar" value="Alterar" style="font-size: 1.5vw;"></span></a></td>
+                                <td><a href="RemoverDepartamento?dep=<c:out value="${item.idDepartamento}"/>"><span class="glyphicon glyphicon-remove" name="Remover" value="Remover" onmouseover="this.style.color='#ca0202'" onmouseout="this.style.color='red'" style="color: red; font-size: 1.5vw;"></span></a></td>                                
                             </tr>
                         </c:forEach>
                     </table>
