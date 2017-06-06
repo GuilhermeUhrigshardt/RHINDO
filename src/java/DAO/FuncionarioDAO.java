@@ -39,7 +39,7 @@ public class FuncionarioDAO {
     private String getIdUF = "select idUF from UF where sigla = ?";
     private String getIdCargo = "select idCargo from Cargo where nomeCargo = ?";
     private String getIdDepartamento = "select idDepartamento from Departamento where nomeDepartamento = ?";
-    private String buscarLogin = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla, d.nomeDepartamento, c.nomeCargo from Funcionario f inner join Endereco e on f.idEndereco = e.idEndereco inner join UF u on e.idUF = u.idUF inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo where f.email = ? and f.senha = ?";
+    private String buscarLogin = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla, d.idDepartamento, d.nomeDepartamento, c.idCargo, c.nomeCargo from Funcionario f inner join Endereco e on f.idEndereco = e.idEndereco inner join UF u on e.idUF = u.idUF inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo where f.email = ? and f.senha = ?";
     
     public void cadastrarFuncionario(Funcionario funcionario) throws SQLException, ClassNotFoundException {
         try {
@@ -253,7 +253,9 @@ public class FuncionarioDAO {
                 e.setCep(rs.getString("e.cep"));
                 e.setCidade(rs.getString("e.cidade"));
                 e.setUf(rs.getString("u.sigla"));
+                d.setIdDepartamento(rs.getInt("d.idDepartamento"));
                 d.setNomeDepartamento(rs.getString("d.nomeDepartamento"));
+                c.setIdCargo(rs.getInt("c.idCargo"));
                 c.setNomeCargo(rs.getString("c.nomeCargo"));
                 f.setCargo(c);
                 f.setEndereco(e);
