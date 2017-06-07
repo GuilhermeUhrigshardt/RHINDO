@@ -65,6 +65,19 @@ public class FuncionariosResource {
         GenericEntity<List<Funcionario>> lista = new GenericEntity<List<Funcionario>>(funcionarios) {};
         return Response.status(Response.Status.OK).entity(lista).build();
     }
+    
+    @GET
+    @Path("/departamento/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obterPorNome(@PathParam("id") int id) throws SQLException, ClassNotFoundException {
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+        Funcionario funcionario = new Funcionario();
+        Endereco endereco = new Endereco();
+        List<Funcionario> funcionarios = new ArrayList<>();
+        funcionarios = funcionarioDAO.buscarPorDepartamento(id);
+        GenericEntity<List<Funcionario>> lista = new GenericEntity<List<Funcionario>>(funcionarios) {};
+        return Response.status(Response.Status.OK).entity(lista).build();
+    }
 
     /**
      * PUT method for updating or creating an instance of FuncionariosResource
