@@ -17,7 +17,7 @@
         <center style="background-image: url(css/office1.jpg); background-size: 100%; background-position: center; height: 100%;">
             <h4>${msg}</h4>
             <div class="container " style="width: 35%">
-                <img src="css/logo.png">
+                <img src="css/logo.png"> 
                 <form action="http://localhost:8080/RHINDO/ProcessaLogin" method="post">
                     <div align="center" class="form-group jumbotron">
                         Email:<input class="form-control" type="text" name="email" id="email"><br/>
