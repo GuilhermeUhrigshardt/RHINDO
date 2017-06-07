@@ -5,9 +5,12 @@
  */
 package WebServices;
 
+import Beans.Endereco;
 import Beans.Funcionario;
 import DAO.FuncionarioDAO;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -16,7 +19,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * REST Web Service
@@ -47,6 +52,18 @@ public class FuncionariosResource {
         Funcionario funcionario = new Funcionario();
         funcionario = funcionarioDAO.buscarLogin(email, senha);
         return funcionario;
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscaTodos() throws SQLException, ClassNotFoundException {
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+        Funcionario funcionario = new Funcionario();
+        Endereco endereco = new Endereco();
+        List<Funcionario> funcionarios = new ArrayList<>();
+        funcionarios = funcionarioDAO.buscarTodos();
+        GenericEntity<List<Funcionario>> lista = new GenericEntity<List<Funcionario>>(funcionarios) {};
+        return Response.status(Response.Status.OK).entity(lista).build();
     }
 
     /**

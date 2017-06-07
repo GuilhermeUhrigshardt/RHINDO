@@ -30,7 +30,7 @@ public class FuncionarioDAO {
     PreparedStatement stmt5 = null;
     ResultSet rs = null;
     private String cadastrarEndereco = "insert into Funcionario (idEndereco, idCargo, idDepartamento, nomeFuncionario, cpf, rg, celular, email, senha) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private String buscarTodos = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla, d.nomeDepartamento, c.nomeCargo from Funcionario f inner join Endereco e on f.idEndereco = e.idEndereco inner join UF u on e.idUF = u.idUF inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo order by f.idFuncionario";
+    private String buscarTodos = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla, d.idDepartamento, d.nomeDepartamento, c.idCargo, c.nomeCargo from Funcionario f inner join Endereco e on f.idEndereco = e.idEndereco inner join UF u on e.idUF = u.idUF inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo order by f.idFuncionario";
     private String buscarPorNome = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla, d.nomeDepartamento, c.nomeCargo from Funcionario f inner join Endereco e on f.idEndereco = e.idEndereco inner join UF u on e.idUF = u.idUF inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo where f.nomeFuncionario like ? order by f.idFuncionario";
     private String buscarPorId = "select f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla, d.nomeDepartamento, c.nomeCargo from Funcionario f inner join Endereco e on f.idEndereco = e.idEndereco inner join UF u on e.idUF = u.idUF inner join Departamento d on d.idDepartamento = f.idDepartamento inner join Cargo c on f.idCargo = c.idCargo where f.idFuncionario = ?";
     private String removerFuncionario = "delete from Funcionario where idFuncionario = ?";
@@ -86,7 +86,9 @@ public class FuncionarioDAO {
                 e.setCep(rs.getString("e.cep"));
                 e.setCidade(rs.getString("e.cidade"));
                 e.setUf(rs.getString("u.sigla"));
+                d.setIdDepartamento(rs.getInt("d.idDepartamento"));
                 d.setNomeDepartamento(rs.getString("d.nomeDepartamento"));
+                c.setIdCargo(rs.getInt("c.idCargo"));
                 c.setNomeCargo(rs.getString("c.nomeCargo"));
                 f.setCargo(c);
                 f.setEndereco(e);
