@@ -16,41 +16,79 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Folhas</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <c:if test="${!empty requestScope.msg}">
+            <script>
+                alert("${requestScope.msg}");
+            </script>
+        </c:if>
+        <title>Folha</title>
     </head>
     <body>
-        <div style="text-align:right;">
-            Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"><a href="/RHINDO/ProcessaLogout">Logout</a></span>
-        </div>
-    <center>
-        <h2>RH-INDO</h2>
-        <a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a> | <a href="/RHINDO/manter_departamentos.jsp">Departamentos</a> | <a href="/RHINDO/manter_cargos.jsp">Cargos</a> | <a href="/RHINDO/Folha">Folhas</a> | <a href="/RHINDO/relatorios.jsp">Relatórios</a>
-        <h1>Fechamento de Folha</h1>
-        <form action="Folha" method="POST">
-            Departamentos:              
-                <select name="listaDepartamentos">
-                    <c:forEach items="${lista}" var="dep">
-                        <option value="${dep.idDepartamento}">${dep.nomeDepartamento}</option>
-                    </c:forEach>
-                </select><br>
-            Mês:
-                <select name="mes">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                </select>
-                <br/>
-            <a href="FecharFolha"><input type="button" value="Fechar Folha"/></a>
-        </form>
+            <center>
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                      <div class="navbar-header">
+                        <a class="navbar-brand" href="/RHINDO/manter_funcionarios.jsp">RH-INDO</a>
+                      </div>
+                      <ul class="nav navbar-nav">
+                        <li><a href="/RHINDO/manter_funcionarios.jsp">Funcionários</a></li>
+                        <li><a href="/RHINDO/manter_departamentos.jsp">Departamentos</a></li>
+                        <li><a href="/RHINDO/manter_cargos.jsp">Cargos</a></li>
+                        <li><a href="/RHINDO/manter_folhas.jsp">Folhas</a></li>
+                        <li><a href="/RHINDO/manter_relatorios.jsp">Relatórios</a></li>
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <div style="margin-top: 2vh; color: #ccc; ">
+                                Bem vindo, <c:out value="${sessionScope.funcionario.nomeFuncionario}"/><span style="float:right;"></span>
+                            </div>
+                        </li>
+                        <li><a href="/RHINDO/ProcessaLogout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                      </ul>
+                    </div>
+                  </nav>
+                    <br/><br/><br/>
+                    <h1>Manter Funcionários</h1>
+                    <br/>
+                    <div class="container " style="width: 50%">
+                        <form action="Folhas" class="form-group jumbotron" method="POST" role="form" style="text-align: left">
+                            <label>Mês: </label>
+                            <select name="mes">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <label>Ano: </label>
+                            <select name="ano">
+                                <option value="2006">2006</option>
+                                <option value="2007">2007</option>
+                                <option value="2008">2008</option>
+                                <option value="2009">2009</option>
+                                <option value="2010">2010</option>
+                                <option value="2011">2011</option>
+                                <option value="2012">2012</option>
+                                <option value="2013">2013</option>
+                                <option value="2014">2014</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                                <option value="2017" selected="true">2017</option>
+                            </select>
+                        <br/>
+                        <input type="submit" value="Fechar Folha"/>
+                        </form>
+                    </div>
     </center>
 </body>
 </html>

@@ -5,8 +5,12 @@
  */
 package Servlets;
 
+import Beans.Atividade;
 import Beans.Departamento;
+import Beans.Funcionario;
 import DAO.DepartamentoDAO;
+import DAO.FolhaDAO;
+import DAO.FuncionarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -21,13 +25,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
  * @author guilh
  */
-@WebServlet(name = "Folha", urlPatterns = {"/Folha"})
-public class Folha extends HttpServlet {
+@WebServlet(name = "Folhas", urlPatterns = {"/Folhas"})
+public class Folhas extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,11 +54,21 @@ public class Folha extends HttpServlet {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
             rd.forward(request, response);
         }
+        int mes = Integer.valueOf(request.getParameter("mes"));
+        int ano = Integer.valueOf(request.getParameter("ano"));
+        List<Atividade> lista = new ArrayList<>();
+        Client client = ClientBuilder.newClient();
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
         DepartamentoDAO departamentoDAO = new DepartamentoDAO();
-        List<Departamento> lista = new ArrayList<>();
-        lista = departamentoDAO.buscarNomes();
-        request.setAttribute("lista", lista);
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_folhas.jsp");
+        Response resp = client.target("http://localhost:21836/ATOA/webresources/atividades").request(MediaType.APPLICATION_JSON).get();
+        lista = resp.readEntity(new GenericType<List<Atividade>>() {});
+        FolhaDAO folhaDAO = new FolhaDAO();
+        for (Atividade a:lista) {
+            a.setFuncionario(funcionarioDAO.buscarPorId(a.getFuncionario().getIdFuncionario()));
+            a.setDepartamento(departamentoDAO.buscarPorId(a.getDepartamento().getIdDepartamento()));
+        }
+        request.setAttribute("msg", "Folha fechada com sucesso!");
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
         rd.forward(request, response);
     }
 
@@ -68,9 +87,9 @@ public class Folha extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(Folha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Folhas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Folha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Folhas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -88,9 +107,9 @@ public class Folha extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(Folha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Folhas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Folha.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Folhas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
