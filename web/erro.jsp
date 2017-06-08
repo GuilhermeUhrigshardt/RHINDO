@@ -20,8 +20,8 @@
         <title>Erro</title>
     </head>
     <body>
-        <center style="margin-top: 30vh;">
-            <h1>RH-INDO</h1>
+        <center style="margin-top: 20vh;">
+            <img src="css/logo.png"> 
             <div class="container " style="width: 35%">
                 <div align="center" class="form-group jumbotron">
                     <c:choose>
