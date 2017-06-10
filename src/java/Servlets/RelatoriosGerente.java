@@ -8,9 +8,14 @@ package Servlets;
 import Beans.Departamento;
 import DAO.DepartamentoDAO;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +26,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
 
 /**
  *
@@ -38,7 +45,7 @@ public class RelatoriosGerente extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException, JRException {
         HttpSession session = request.getSession(false);
         if (session.getAttribute("funcionario") == null) {
             request.setAttribute("msg", "Acesso negado!");
@@ -54,7 +61,33 @@ public class RelatoriosGerente extends HttpServlet {
             rd.forward(request, response);
         }
         else if (request.getParameter("rel").equals("1")) {
-            
+            Connection con = null;
+            try {
+                DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+                con = DriverManager.getConnection("jdbc:mysql://localhost/rhindo", "root", "1q2w3e4r5");
+                String jasper = request.getContextPath() + "/Todo_funcionarios.jasper";
+                String host = "http://" + request.getServerName() + ":" + request.getServerPort();
+                URL jasperURL = new URL(host + jasper);
+                HashMap params = new HashMap();
+                byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, con);
+                if (bytes != null) {
+                    response.setContentType("application/pdf");
+                    OutputStream ops = response.getOutputStream();
+                    ops.write(bytes);
+                }
+            }
+            catch(SQLException e) {
+                request.setAttribute("msg", "Erro de conexão ou query: " + e.getMessage());
+                request.getRequestDispatcher("erro.jsp").forward(request, response);
+            }
+            catch(JRException e) {
+                request.setAttribute("msg", "Erro no Jasper : " + e.getMessage());
+                request.getRequestDispatcher("erro.jsp").forward(request, response);
+            }
+            finally {
+                if (con!=null)
+                try { con.close(); } catch(Exception e) {}
+            }
         }
         else if (request.getParameter("rel").equals("2")) {
             
@@ -82,6 +115,8 @@ public class RelatoriosGerente extends HttpServlet {
             Logger.getLogger(RelatoriosGerente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(RelatoriosGerente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JRException ex) {
+            Logger.getLogger(RelatoriosGerente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -101,6 +136,8 @@ public class RelatoriosGerente extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(RelatoriosGerente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RelatoriosGerente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JRException ex) {
             Logger.getLogger(RelatoriosGerente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

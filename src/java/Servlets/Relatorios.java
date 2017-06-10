@@ -46,10 +46,6 @@ public class Relatorios extends HttpServlet {
             rd.forward(request, response);
         }
         if (request.getParameter("rel") == null) {
-            DepartamentoDAO departamentoDAO = new DepartamentoDAO();
-            List<Departamento> lista = new ArrayList<>();
-            lista = departamentoDAO.buscarNomes();
-            request.setAttribute("departamentos", lista);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/relatorios_funcionario.jsp");
             rd.forward(request, response);
         }
