@@ -5,12 +5,13 @@
  */
 package Servlets;
 
-import Beans.Funcionario;
-import DAO.LoginDAO;
+import Beans.Departamento;
+import DAO.DepartamentoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -25,8 +26,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author guilh
  */
-@WebServlet(name = "ProcessaLogin", urlPatterns = {"/ProcessaLogin"})
-public class ProcessaLogin extends HttpServlet {
+@WebServlet(name = "Relatorios", urlPatterns = {"/Relatorios"})
+public class Relatorios extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,36 +38,26 @@ public class ProcessaLogin extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, NoSuchAlgorithmException {
-        response.setContentType("text/html;charset=UTF-8");
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
-        PrintWriter out = response.getWriter();
-        LoginDAO loginDAO = new LoginDAO();
-        Funcionario funcionario = new Funcionario();
-        MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
-        byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
-        StringBuilder hexString = new StringBuilder();
-        for (byte b : messageDigest) {
-            hexString.append(String.format("%02X", 0xFF & b));
-        }
-        String senhac = hexString.toString();
-        funcionario = loginDAO.lerFuncionario(email, senhac);
-        if (funcionario != null) {            
-            HttpSession session = request.getSession();
-            session.setAttribute("funcionario", funcionario);
-            session.setMaxInactiveInterval(20*60);
-            RequestDispatcher rd = null;
-            if (funcionario.getCargo().getNomeCargo().equals("Gerente") && funcionario.getDepartamento().getNomeDepartamento().equals("RH"))
-                rd = getServletContext().getRequestDispatcher("/manter_funcionarios.jsp");
-            else
-                rd = getServletContext().getRequestDispatcher("/Relatorios");
-            rd.include(request, response);
-        }
-        else {
-            request.setAttribute("msg", "Email e/ou senha incorreto(s)!");
-            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        HttpSession session = request.getSession(false);
+        if (session.getAttribute("funcionario") == null) {
+            request.setAttribute("msg", "Acesso negado!");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/erro.jsp");
             rd.forward(request, response);
+        }
+        if (request.getParameter("rel") == null) {
+            DepartamentoDAO departamentoDAO = new DepartamentoDAO();
+            List<Departamento> lista = new ArrayList<>();
+            lista = departamentoDAO.buscarNomes();
+            request.setAttribute("departamentos", lista);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/relatorios_funcionario.jsp");
+            rd.forward(request, response);
+        }
+        else if (request.getParameter("rel").equals("1")) {
+            
+        }
+        else if (request.getParameter("rel").equals("2")) {
+            
         }
     }
 
@@ -84,8 +75,10 @@ public class ProcessaLogin extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(ProcessaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Relatorios.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Relatorios.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -102,8 +95,10 @@ public class ProcessaLogin extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(ProcessaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Relatorios.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Relatorios.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -36,7 +36,7 @@
                         <li><a href="/RHINDO/manter_departamentos.jsp">Departamentos</a></li>
                         <li><a href="/RHINDO/manter_cargos.jsp">Cargos</a></li>
                         <li><a href="/RHINDO/manter_folhas.jsp">Folhas</a></li>
-                        <li><a href="/RHINDO/manter_relatorios.jsp">Relatórios</a></li>
+                        <li><a href="/RHINDO/RelatoriosGerente">Relatórios</a></li>
                       </ul>
                       <ul class="nav navbar-nav navbar-right">
                         <li>
