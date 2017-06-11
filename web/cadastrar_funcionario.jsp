@@ -72,7 +72,7 @@
                     <br/>
                     <label>CEP:</label> <input type="text" class="form-control" name="Cep" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="cep" placeholder="99999-999">
                     <br/>
-                    <label>Cidade:</label> <input type="text" class="form-control" name="Cidade" placeholder="Curitiba">
+                    <label>Cidade:</label> <input type="text" class="form-control" name="Cidade" placeholder="Cidade">
                     <br/>
                     <label>Estado:</label> 
                     <select class="form-control" name="Estado">

@@ -54,39 +54,43 @@
                     <h1>Folha</h1>
                     <br/>
                     <div class="container " style="width: 50%">
-                        <form action="Folhas" class="form-group jumbotron" method="POST" role="form" style="text-align: left">
-                            <label>Mês: </label>
-                            <select name="mes">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
-                            <label>Ano: </label>
-                            <select name="ano">
-                                <option value="2006">2006</option>
-                                <option value="2007">2007</option>
-                                <option value="2008">2008</option>
-                                <option value="2009">2009</option>
-                                <option value="2010">2010</option>
-                                <option value="2011">2011</option>
-                                <option value="2012">2012</option>
-                                <option value="2013">2013</option>
-                                <option value="2014">2014</option>
-                                <option value="2015">2015</option>
-                                <option value="2016">2016</option>
-                                <option value="2017" selected="true">2017</option>
-                            </select>
-                        <br/>
-                        <input type="submit" value="Fechar Folha"/>
+                        <form action="Folhas" class="form-group jumbotron" method="POST" role="form" style="text-align: left; display: flex; flex-flow: column;">
+                            <div style="flex-flow: row wrap; display: flex;">
+                                <label>Mês: </label>
+                                <select class="form-control" name="mes" style="width: 15%; margin-right: 5vw;">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <label>Ano: </label>
+                                <select class="form-control" name="ano" style="width: 15%">
+                                    <option value="2006">2006</option>
+                                    <option value="2007">2007</option>
+                                    <option value="2008">2008</option>
+                                    <option value="2009">2009</option>
+                                    <option value="2010">2010</option>
+                                    <option value="2011">2011</option>
+                                    <option value="2012">2012</option>
+                                    <option value="2013">2013</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2015">2015</option>
+                                    <option value="2016">2016</option>
+                                    <option value="2017" selected="true">2017</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div>
+                                <input class="btn btn-primary" type="submit" value="Fechar Folha"/>
+                            </div>
                         </form>
                     </div>
     </center>
