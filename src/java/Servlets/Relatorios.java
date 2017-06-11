@@ -6,6 +6,7 @@
 package Servlets;
 
 import Beans.Departamento;
+import Beans.Funcionario;
 import DAO.DepartamentoDAO;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -61,11 +62,13 @@ public class Relatorios extends HttpServlet {
             try {
                 DriverManager.registerDriver(new com.mysql.jdbc.Driver());
                 con = DriverManager.getConnection("jdbc:mysql://localhost/rhindo", "root", "1q2w3e4r5");
-                String jasper = request.getContextPath() + "/Todo_funcionarios.jasper";
+                String jasper = request.getContextPath() + "/Horas_Trabalhadas.jasper";
                 String host = "http://" + request.getServerName() + ":" + request.getServerPort();
                 URL jasperURL = new URL(host + jasper);
                 HashMap params = new HashMap();
-                params.put("fu.idFuncionario", (Integer)session.getAttribute("funcionario.idFuncionario"));
+                Funcionario funcionario = new Funcionario();
+                funcionario = (Funcionario)session.getAttribute("funcionario");
+                params.put("fu.idFuncionario", funcionario.getIdFuncionario());
                 byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, con);
                 if (bytes != null) {
                     response.setContentType("application/pdf");
@@ -91,11 +94,13 @@ public class Relatorios extends HttpServlet {
             try {
                 DriverManager.registerDriver(new com.mysql.jdbc.Driver());
                 con = DriverManager.getConnection("jdbc:mysql://localhost/rhindo", "root", "1q2w3e4r5");
-                String jasper = request.getContextPath() + "/Todo_funcionarios.jasper";
+                String jasper = request.getContextPath() + "/Holerite_doMes.jasper";
                 String host = "http://" + request.getServerName() + ":" + request.getServerPort();
                 URL jasperURL = new URL(host + jasper);
                 HashMap params = new HashMap();
-                params.put("fu.idFuncionario", (Integer)session.getAttribute("funcionario.idFuncionario"));
+                Funcionario funcionario = new Funcionario();
+                funcionario = (Funcionario)session.getAttribute("funcionario");
+                params.put("fu.idFuncionario", funcionario.getIdFuncionario());
                 params.put("f.mes", Integer.valueOf(request.getParameter("mes")));
                 params.put("f.ano", Integer.valueOf(request.getParameter("ano")));
                 byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, con);

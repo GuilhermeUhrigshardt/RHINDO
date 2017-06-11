@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -156,6 +157,7 @@ public class Folhas extends HttpServlet {
                                     }
                                     else {// Se a atividade nao foi encerrada
                                         check = true;
+                                        client.target("http://localhost:21836/ATOA/webresources/aviso").request(MediaType.APPLICATION_JSON).post(Entity.json(f));
                                     }
                                 }
                             }

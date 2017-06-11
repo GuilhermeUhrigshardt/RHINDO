@@ -19,7 +19,7 @@ import java.sql.SQLException;
  * @author guilh
  */
 public class LoginDAO {
-    private String stmtBuscaFuncionario = "SELECT f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, d.nomeDepartamento, d.localizacao, c.nomeCargo, c.salario, c.requisitos, c.cargaMinima, c.descontoImpostos, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla\n"
+    private String stmtBuscaFuncionario = "SELECT f.idFuncionario, f.nomeFuncionario, f.cpf, f.rg, f.celular, f.email, d.nomeDepartamento, d.localizacao, c.nomeCargo, c.salario, c.requisitos, c.cargaMinima, c.descontoImpostos, e.rua, e.numero, e.bairro, e.cep, e.cidade, u.sigla\n"
             + "FROM Funcionario f\n"
             + "INNER JOIN Departamento d ON f.idDepartamento = d.idDepartamento\n"
             + "INNER JOIN Cargo c ON f.idCargo = c.idCargo\n"
@@ -55,6 +55,7 @@ public class LoginDAO {
                 e.setCep(rs.getString("e.cep"));
                 e.setCidade(rs.getString("e.cidade"));
                 e.setUf(rs.getString("u.sigla"));
+                f.setIdFuncionario(rs.getInt("f.idFuncionario"));
                 f.setNomeFuncionario(rs.getString("f.nomeFuncionario"));
                 f.setCpf(rs.getString("f.cpf"));
                 f.setRg(rs.getString("f.rg"));
