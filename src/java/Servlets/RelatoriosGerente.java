@@ -90,10 +90,67 @@ public class RelatoriosGerente extends HttpServlet {
             }
         }
         else if (request.getParameter("rel").equals("2")) {
-            
+            Connection con = null;
+            try {
+                DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+                con = DriverManager.getConnection("jdbc:mysql://localhost/rhindo", "root", "1q2w3e4r5");
+                String jasper = request.getContextPath() + "/Horas_Departamento.jasper";
+                String host = "http://" + request.getServerName() + ":" + request.getServerPort();
+                URL jasperURL = new URL(host + jasper);
+                HashMap params = new HashMap();
+                params.put("f.mes", Integer.valueOf(request.getParameter("mes")));
+                params.put("f.ano", Integer.valueOf(request.getParameter("ano")));
+                params.put("d.idDepartamento", Integer.valueOf(request.getParameter("departamento")));
+                byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, con);
+                if (bytes != null) {
+                    response.setContentType("application/pdf");
+                    OutputStream ops = response.getOutputStream();
+                    ops.write(bytes);
+                }
+            }
+            catch(SQLException e) {
+                request.setAttribute("msg", "Erro de conexão ou query: " + e.getMessage());
+                request.getRequestDispatcher("erro.jsp").forward(request, response);
+            }
+            catch(JRException e) {
+                request.setAttribute("msg", "Erro no Jasper : " + e.getMessage());
+                request.getRequestDispatcher("erro.jsp").forward(request, response);
+            }
+            finally {
+                if (con!=null)
+                try { con.close(); } catch(Exception e) {}
+            }
         }
         else if (request.getParameter("rel").equals("3")) {
-            
+            Connection con = null;
+            try {
+                DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+                con = DriverManager.getConnection("jdbc:mysql://localhost/rhindo", "root", "1q2w3e4r5");
+                String jasper = request.getContextPath() + "/Funcionario_CargaMin.jasper";
+                String host = "http://" + request.getServerName() + ":" + request.getServerPort();
+                URL jasperURL = new URL(host + jasper);
+                HashMap params = new HashMap();
+                params.put("f.mes", Integer.valueOf(request.getParameter("mes")));
+                params.put("f.ano", Integer.valueOf(request.getParameter("ano")));
+                byte[] bytes = JasperRunManager.runReportToPdf(jasperURL.openStream(), params, con);
+                if (bytes != null) {
+                    response.setContentType("application/pdf");
+                    OutputStream ops = response.getOutputStream();
+                    ops.write(bytes);
+                }
+            }
+            catch(SQLException e) {
+                request.setAttribute("msg", "Erro de conexão ou query: " + e.getMessage());
+                request.getRequestDispatcher("erro.jsp").forward(request, response);
+            }
+            catch(JRException e) {
+                request.setAttribute("msg", "Erro no Jasper : " + e.getMessage());
+                request.getRequestDispatcher("erro.jsp").forward(request, response);
+            }
+            finally {
+                if (con!=null)
+                try { con.close(); } catch(Exception e) {}
+            }
         }
     }
 

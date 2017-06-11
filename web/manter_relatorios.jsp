@@ -60,6 +60,13 @@
                 <div align="center" class="form-group jumbotron">
                     <form action="RelatoriosGerente">
                         <input type="hidden" name="rel" value="2">
+                        <label>Departamento: </label>
+                        <select name="departamento">
+                            <c:forEach items="${departamentos}" var="dep">
+                                <option value="${dep.idDepartamento}">${dep.nomeDepartamento}</option>
+                            </c:forEach>
+                        </select>
+                        <br/><br/>
                         <label>Mês: </label>
                         <select name="mes">
                             <option value="1">1</option>
