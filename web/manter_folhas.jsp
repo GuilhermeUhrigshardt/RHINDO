@@ -51,7 +51,7 @@
                     </div>
                   </nav>
                     <br/><br/><br/>
-                    <h1>Manter Funcionários</h1>
+                    <h1>Folha</h1>
                     <br/>
                     <div class="container " style="width: 50%">
                         <form action="Folhas" class="form-group jumbotron" method="POST" role="form" style="text-align: left">

@@ -20,6 +20,7 @@ public class FolhaDAO {Connection con = null;
     PreparedStatement stmt = null;
     ResultSet rs = null;
     private String inserirFolha = "insert into Folha (idFuncionario, horasTrabalhadas, mes, ano, salarioLiquido, salarioBruto) values (?, ?, ?, ?, ?, ?)";
+    private String verifica = "select idFolha from Folha where mes = ? and ano = ?";
     
     public void inserirFolha(Folha folha) throws SQLException, ClassNotFoundException {
         try {
@@ -38,5 +39,25 @@ public class FolhaDAO {Connection con = null;
             stmt.close();
             con.close();
         }
+    }
+    
+    public boolean verifica(int mes, int ano) throws SQLException, ClassNotFoundException {
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(verifica);
+            stmt.setInt(1, mes);
+            stmt.setInt(2, ano);
+            rs = stmt.executeQuery();
+            if (rs.next())
+                return false;
+            return true;
+        } catch (SQLException ex) {
+            out.println("Erro ao verificar Folha: " + ex.getMessage());
+        } finally {
+            stmt.close();
+            con.close();
+            rs.close();
+        }
+        return true;
     }
 }
