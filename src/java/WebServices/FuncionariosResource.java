@@ -5,8 +5,10 @@
  */
 package WebServices;
 
+import Beans.Departamento;
 import Beans.Endereco;
 import Beans.Funcionario;
+import DAO.DepartamentoDAO;
 import DAO.FuncionarioDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -77,6 +79,26 @@ public class FuncionariosResource {
         funcionarios = funcionarioDAO.buscarPorDepartamento(id);
         GenericEntity<List<Funcionario>> lista = new GenericEntity<List<Funcionario>>(funcionarios) {};
         return Response.status(Response.Status.OK).entity(lista).build();
+    }
+    
+    @GET
+    @Path("/departamento/nome/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Departamento obterPorId(@PathParam("id") int id) throws SQLException, ClassNotFoundException {
+        DepartamentoDAO departamentoDAO = new DepartamentoDAO();
+        Departamento departamento = new Departamento();
+        departamento = departamentoDAO.buscarPorId(id);
+        return departamento;
+    }
+    
+    @GET
+    @Path("/nome/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Funcionario obterNomePorId(@PathParam("id") int id) throws SQLException, ClassNotFoundException {
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+        Funcionario funcionario = new Funcionario();
+        funcionario = funcionarioDAO.buscarPorId(id);
+        return funcionario;
     }
 
     /**
